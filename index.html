@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CERNE — Vista sua identidade.</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F2E6; --bg-card:#FFFFFF; --bg-alt:#EFE7D6;
+    --ink:#1A1815; --ink-soft:#4A453D; --ink-mute:#8B8271;
+    --line:#E3DACB;
+    --accent:#B8563A; --accent-deep:#8F3F29; --accent-soft:#F3E1D9;
+    --olive:#6E7A52; --olive-soft:#E7EADD;
+    --dark:#1A1815; --dark-text:#F0E9DA;
+    --serif:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+    --radius:8px; --radius-lg:14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); font-family:var(--sans); color:var(--ink); -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:480px; margin:0 auto; background:var(--bg); overflow-x:hidden;}
+  img,video{max-width:100%; display:block;}
+  a{color:inherit;}
+  button{font-family:inherit; cursor:pointer;}
+
+  .placeholder-tag{
+    display:inline-block; font-family:var(--mono); font-size:9px; letter-spacing:0.5px;
+    text-transform:uppercase; background:var(--ink); color:var(--dark-text); padding:3px 7px; border-radius:4px;
+  }
+  .play-btn{
+    width:50px; height:50px; border-radius:50%; background:rgba(26,24,21,0.82); display:flex; align-items:center;
+    justify-content:center; color:#fff; font-size:19px; flex-shrink:0;
+  }
+
+  /* ---- Ribbon + header ---- */
+  .ribbon{background:var(--dark); color:var(--dark-text); text-align:center; font-family:var(--mono); font-size:10.5px;
+    letter-spacing:1.5px; text-transform:uppercase; padding:8px 12px;}
+  header{display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:var(--dark);}
+  .wordmark{font-family:var(--serif); font-size:20px; letter-spacing:5px; font-weight:500;}
+  header .wordmark{color:var(--dark-text);}
+  .logo-lockup{display:flex; align-items:center; gap:9px;}
+  .logo-mark{width:26px; height:36px; flex-shrink:0;}
+  .logo-wordmark{font-family:var(--serif); font-size:21px; font-weight:500; letter-spacing:0.5px; color:var(--dark-text);}
+  .header-right{display:flex; align-items:center; gap:16px; font-size:13px; color:#C9BFA8;}
+  .header-right i{font-size:20px;}
+
+  /* ---- Faixa de promoção (marquee infinito) ---- */
+  .promo-marquee{background:var(--accent); overflow:hidden; padding:9px 0; white-space:nowrap;}
+  .promo-marquee.olive{background:var(--olive);}
+  .promo-track{display:inline-flex; animation:marquee 20s linear infinite;}
+  .promo-track span{padding:0 22px; font-family:var(--mono); font-size:10.5px; letter-spacing:0.4px; color:#fff; text-transform:uppercase; display:flex; align-items:center; gap:10px;}
+  .promo-track span::after{content:"✦"; opacity:0.6; font-size:9px;}
+  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---- Hero / phone mockup ---- */
+  .hero{padding:6px 20px 24px;}
+  .phone-mock{background:var(--dark); border-radius:26px; padding:12px; margin-bottom:20px; box-shadow:0 18px 40px rgba(26,24,21,0.18);}
+  .phone-notch{width:70px; height:14px; background:#000; border-radius:0 0 10px 10px; margin:0 auto 6px;}
+  .phone-screen{background:#221F19; border-radius:16px; padding:14px 12px 16px; color:var(--dark-text);}
+  .phone-topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .phone-brand{font-family:var(--serif); font-size:12px; letter-spacing:2px;}
+  .phone-greeting{font-family:var(--serif); font-size:15px; margin-bottom:2px;}
+  .phone-sub{font-size:10px; color:#9C9384; margin-bottom:12px;}
+  .phone-tabs{display:flex; gap:6px; margin-bottom:12px;}
+  .phone-tab{font-size:9px; padding:5px 9px; border-radius:12px; background:#332E25; color:#B8AE9C; font-family:var(--mono);}
+  .phone-tab.on{background:var(--accent); color:#fff;}
+  .phone-reco-label{font-size:9.5px; color:#9C9384; margin-bottom:8px; display:flex; justify-content:space-between;}
+  .phone-looks-row{display:flex; gap:7px;}
+  .phone-look{flex:1; aspect-ratio:0.72; border-radius:8px; overflow:hidden; position:relative;}
+  .phone-look .plabel{position:absolute; bottom:5px; left:5px; font-size:7.5px; background:rgba(0,0,0,0.55); padding:2px 5px; border-radius:3px;}
+
+  .eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent-deep); margin-bottom:6px;}
+  h1{font-family:var(--serif); font-size:29px; font-weight:500; line-height:1.15; margin-bottom:10px;}
+  .hero-sub{font-size:14.5px; color:var(--ink-soft); line-height:1.55; margin-bottom:14px;}
+
+  .rating-chip{display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-mute); padding:6px 10px;
+    border:1px dashed var(--ink-mute); border-radius:20px; margin-bottom:18px; font-family:var(--sans);}
+  .rating-chip .stars{color:var(--accent); letter-spacing:1px;}
+
+  .price-block{margin-bottom:16px;}
+  .price-old{font-size:13px; color:var(--ink-mute); text-decoration:line-through; margin-bottom:2px;}
+  .price-now{font-family:var(--serif); font-size:27px; font-weight:600;}
+  .price-now small{font-family:var(--sans); font-size:14px; font-weight:400; color:var(--ink-soft);}
+  .price-inst{font-size:12.5px; color:var(--ink-mute); margin-top:2px;}
+
+  /* ---- Seletor de opção de compra ---- */
+  .purchase-options{display:flex; flex-direction:column; gap:10px; margin-bottom:6px;}
+  .purchase-option{
+    position:relative; display:flex; align-items:center; gap:12px; padding:14px;
+    border:1.5px solid var(--line); border-radius:var(--radius-lg); background:var(--bg-card); cursor:pointer;
+  }
+  .purchase-option.selected{border-color:var(--accent); background:var(--accent-soft);}
+  .purchase-option input{position:absolute; opacity:0; pointer-events:none;}
+  .po-radio{width:20px; height:20px; border-radius:50%; border:2px solid var(--ink-mute); flex-shrink:0; position:relative; background:#fff;}
+  .purchase-option.selected .po-radio{border-color:var(--accent);}
+  .purchase-option.selected .po-radio::after{content:""; position:absolute; inset:3px; border-radius:50%; background:var(--accent);}
+  .po-body{flex:1; min-width:0;}
+  .po-title{font-size:13px; font-weight:600; color:var(--ink); line-height:1.3;}
+  .po-sub{font-size:10.5px; color:var(--accent-deep); margin-top:3px; font-weight:600;}
+  .po-price{font-family:var(--serif); font-size:16px; font-weight:600; white-space:nowrap; text-align:right;}
+  .po-price-wrap{text-align:right;}
+  .po-price-old{font-size:10.5px; color:var(--ink-mute); text-decoration:line-through; text-align:right; margin-top:2px;}
+  .po-badge{
+    position:absolute; top:-9px; right:14px; background:var(--olive); color:#fff; font-family:var(--mono);
+    font-size:9px; text-transform:uppercase; letter-spacing:0.4px; padding:3px 9px; border-radius:10px; font-weight:600;
+  }
+
+  .cta-btn{
+    display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:17px;
+    background:var(--accent); color:#fff; border:none; border-radius:var(--radius); font-family:var(--sans);
+    font-weight:700; font-size:14.5px; letter-spacing:0.4px; text-transform:uppercase; text-decoration:none;
+  }
+  .cta-btn:active{transform:scale(0.99);}
+
+  .lifetime-line{display:flex; align-items:center; justify-content:center; gap:4px; font-size:11.5px; color:var(--ink-mute); margin:0 0 10px;}
+  .lifetime-line i{font-size:13px; color:var(--ink-mute);}
+  .trust-line{display:flex; align-items:center; justify-content:center; gap:16px; font-size:11.5px; color:var(--ink-mute); margin:16px 0 16px;}
+  .trust-line span{display:flex; align-items:center; gap:4px;}
+
+  .detail-videos{margin-bottom:18px;}
+
+  /* ---- Carrossel de vídeos verticais (avança sozinho) ---- */
+  .detail-carousel{display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 46px 8px; scrollbar-width:none;}
+  .detail-carousel::-webkit-scrollbar{display:none;}
+  .detail-carousel-item{flex:0 0 76%; aspect-ratio:9/15; border-radius:var(--radius-lg); overflow:hidden; scroll-snap-align:center; position:relative; border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#E7DCC4,#D8C9A6);}
+  .detail-carousel-item video{width:100%; height:100%; object-fit:cover;}
+  .detail-carousel-item .placeholder-tag{position:absolute; top:10px; left:10px; z-index:2;}
+  .detail-videos-title{font-family:var(--serif); font-size:15px; font-weight:500; margin-bottom:12px;}
+  .detail-videos-row{display:flex; gap:12px;}
+  .detail-video-circle{width:68px; height:68px; border-radius:50%; overflow:hidden; border:2px solid var(--line); position:relative; cursor:pointer; background:var(--bg-card); flex-shrink:0;}
+  .detail-video-circle video{width:100%; height:100%; object-fit:cover;}
+  .circle-play-overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; background:rgba(26,24,21,0.25);}
+
+  .check-row-band{background:var(--bg-alt); border-radius:var(--radius-lg); padding:12px 14px;}
+  .check-row{display:flex; gap:12px; font-size:10px; color:var(--ink-soft); overflow-x:auto; white-space:nowrap; padding-bottom:2px;}
+  .check-row::-webkit-scrollbar{display:none;}
+  .check-row span{display:flex; align-items:center; gap:4px; flex-shrink:0;}
+  .check-row i{color:var(--olive); font-size:15px;}
+
+  /* ---- Bolinha de vídeo flutuante ---- */
+  .floating-video-bubble{
+    position:fixed; width:66px; height:66px; border-radius:50%; overflow:hidden; border:3px solid #fff;
+    box-shadow:0 8px 22px rgba(26,24,21,0.35); z-index:70; cursor:grab; touch-action:none; top:230px; right:18px;
+    background:var(--bg-card);
+  }
+  .floating-video-bubble:active{cursor:grabbing;}
+  .floating-video-bubble video{width:100%; height:100%; object-fit:cover; pointer-events:none;}
+
+  .floating-bubble-label{
+    position:fixed; top:250px; right:92px; background:var(--ink); color:#fff; font-family:var(--mono); font-size:10px;
+    letter-spacing:0.3px; text-transform:uppercase; padding:8px 14px; border-radius:20px; z-index:69; white-space:nowrap;
+    opacity:1; transition:opacity .5s ease; box-shadow:0 6px 16px rgba(26,24,21,0.25);
+  }
+  .floating-bubble-label.hide{opacity:0; pointer-events:none;}
+
+  /* ---- Lightbox de vídeo em tela cheia ---- */
+  .video-lightbox{position:fixed; inset:0; background:rgba(0,0,0,0.94); display:none; align-items:center; justify-content:center; z-index:80; padding:24px;}
+  .video-lightbox.open{display:flex;}
+  .video-lightbox video{max-width:100%; max-height:88vh; border-radius:8px;}
+  .video-lightbox-close{position:fixed; top:20px; right:20px; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; z-index:81;}
+  .video-lightbox-close i{font-size:18px;}
+
+  /* ---- Barra fixa de compra (some enquanto rola, com fundo desfocado) ---- */
+  .sticky-cta-bar{
+    position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; z-index:60;
+    background:rgba(247,242,230,0.86); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border-top:1px solid var(--line); padding:12px 20px; display:flex; align-items:center; gap:12px;
+    opacity:0; pointer-events:none; transition:opacity .25s ease; box-shadow:0 -6px 18px rgba(26,24,21,0.06);
+  }
+  .sticky-cta-bar.show{opacity:1; pointer-events:auto;}
+  .sticky-cta-bar .sc-price{flex:1;}
+  .sticky-cta-bar .sc-price b{font-family:var(--serif); font-size:15.5px; display:block; font-weight:600;}
+  .sticky-cta-bar .sc-price span{font-size:10.5px; color:var(--ink-mute);}
+  .sticky-cta-bar .cta-btn{width:auto; padding:12px 20px; font-size:11.5px; white-space:nowrap; margin:0;}
+
+  /* ---- Sections ---- */
+  section{padding:34px 20px;}
+  .section-title{font-family:var(--serif); font-size:21px; font-weight:500; text-align:center; margin-bottom:18px;}
+
+  .video-hero{aspect-ratio:16/10; display:flex; align-items:flex-end; padding:16px; position:relative; overflow:hidden; border-radius:var(--radius-lg); border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#EFE7D6,#DFD3B8);}
+  .video-hero .caption{position:relative; z-index:2; color:var(--ink);}
+  .video-hero .caption h3{font-family:var(--serif); font-size:19px; font-weight:500; line-height:1.3; margin-bottom:6px;}
+  .video-hero .caption p{font-size:11px; color:var(--ink-mute); font-family:var(--mono);}
+  .video-hero .play-btn{position:absolute; top:16px; right:16px;}
+  .video-hero .placeholder-tag{position:absolute; top:16px; left:16px;}
+
+  .promo-banner-slot{
+    aspect-ratio:1/1; border-radius:var(--radius-lg); border:1px dashed var(--ink-mute); background:var(--bg-alt);
+    position:relative; display:flex; align-items:center; justify-content:center; padding:30px 24px; text-align:center;
+  }
+  .promo-banner-slot p{font-size:13px; color:var(--ink-mute); line-height:1.6;}
+
+  .split-note{display:flex; gap:10px; align-items:flex-start; padding:22px 20px; background:var(--bg-alt); margin:0 20px 8px; border-radius:var(--radius-lg);}
+  .split-note i{font-size:20px; color:var(--accent); margin-top:2px;}
+  .split-note p{font-family:var(--serif); font-size:16.5px; line-height:1.4; font-weight:500;}
+
+  /* ---- Accordion (Avaliações / Descrição) ---- */
+  .accordion{border-top:1px solid var(--line);}
+  .accordion-item{border-bottom:1px solid var(--line);}
+  .accordion-head{display:flex; align-items:center; justify-content:space-between; padding:16px 4px; cursor:pointer;}
+  .accordion-head .ah-left{display:flex; align-items:center; gap:10px;}
+  .accordion-head b{font-family:var(--sans); font-size:14.5px; font-weight:600;}
+  .accordion-head .stars-mini{color:var(--accent); font-size:12px; letter-spacing:1px;}
+  .accordion-head i.chev{transition:transform .2s ease; color:var(--accent); font-size:19px;}
+  .accordion-item.open .chev{transform:rotate(180deg);}
+  .accordion-body{display:none; padding:0 4px 20px;}
+  .accordion-item.open .accordion-body{display:block;}
+
+  .rev-summary{display:flex; align-items:center; gap:16px; margin-bottom:16px;}
+  .rev-score{font-family:var(--serif); font-size:38px; font-weight:600;}
+  .rev-score-sub{font-size:11px; color:var(--ink-mute); line-height:1.4;}
+  .rev-bars{margin-bottom:14px;}
+  .rev-bar-row{display:flex; align-items:center; gap:8px; font-size:11px; color:var(--ink-mute); margin-bottom:4px;}
+  .rev-bar-track{flex:1; height:5px; background:var(--line); border-radius:4px; overflow:hidden;}
+  .rev-bar-fill{height:100%; background:var(--accent);}
+  .rev-filter-note{font-size:11.5px; color:var(--ink-mute); margin-bottom:14px; line-height:1.5;}
+  .rev-sort{display:flex; justify-content:flex-end; margin-bottom:14px;}
+  .rev-sort select{font-family:var(--sans); font-size:11.5px; padding:6px 10px; border:1px solid var(--line); border-radius:var(--radius); background:var(--bg-card); color:var(--ink);}
+  .rev-card{padding-bottom:16px; margin-bottom:16px; border-bottom:1px solid var(--line);}
+  .rev-card:last-child{border-bottom:none; margin-bottom:0;}
+  .rev-card .stars-mini{margin-bottom:6px; display:block;}
+  .rev-card b{font-size:13.5px; display:block; margin-bottom:3px;}
+  .rev-meta{font-size:11px; color:var(--ink-mute); margin-bottom:8px; display:flex; align-items:center; gap:6px;}
+  .rev-meta i{color:var(--olive); font-size:13px;}
+  .rev-text{font-size:12.5px; color:var(--ink-soft); line-height:1.55;}
+  .desc-text{font-size:13px; color:var(--ink-soft); line-height:1.65;}
+
+  /* ---- Compartilhe o look ---- */
+  .share-note{font-size:13px; color:var(--ink-soft); line-height:1.55; margin-bottom:14px;}
+  .verified-badge{display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--olive); background:var(--olive-soft); padding:7px 12px; border-radius:20px; margin-bottom:16px;}
+  .verified-badge i{font-size:14px;}
+  .community-tabs{display:inline-flex; background:var(--bg-card); border:1px solid var(--line); border-radius:26px; padding:4px; margin-bottom:16px; box-shadow:0 2px 6px rgba(26,24,21,0.06);}
+  .community-tab{padding:9px 18px; border-radius:22px; font-size:12.5px; font-weight:600; color:var(--ink-mute); background:transparent; border:none;}
+  .community-tab.active{background:var(--ink); color:#fff;}
+  .community-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .ver-mais-btn{display:block; width:100%; margin-top:14px; padding:12px; background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius); font-size:12.5px; font-weight:600; color:var(--ink-soft); text-align:center;}
+  .community-post{position:relative;}
+  .community-post .cp-photo{aspect-ratio:0.82; border-radius:var(--radius-lg); overflow:hidden; border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#E7DCC4,#D8C9A6); display:flex; align-items:center; justify-content:center; position:relative;}
+  .community-post .cp-photo svg{width:56px; height:76px;}
+  .community-post .placeholder-tag{position:absolute; top:8px; left:8px; z-index:2; font-size:8.5px; padding:2px 6px;}
+  .cp-handle-badge{position:absolute; left:7px; right:7px; bottom:7px; display:flex; align-items:center; gap:6px; background:rgba(26,24,21,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-radius:20px; padding:4px 10px 4px 4px; z-index:2;}
+  .cp-ig-icon{width:24px; height:24px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; color:var(--ink); flex-shrink:0;}
+  .cp-handle-badge span.handle-text{color:#fff; font-size:11px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .cp-verified-badge{display:flex; align-items:center; justify-content:center; gap:5px; background:var(--olive-soft); color:var(--olive); font-size:11px; font-weight:500; padding:7px 10px; border-radius:20px; margin-top:8px;}
+  .cp-verified-badge i{font-size:13px;}
+
+  .story-post{position:relative; aspect-ratio:0.82; border-radius:var(--radius-lg); overflow:hidden; border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#EFE7D6,#DFD3B8); display:flex; align-items:center; justify-content:center;}
+  .story-post .story-handle{position:absolute; left:7px; right:7px; bottom:7px; display:flex; align-items:center; gap:6px; background:rgba(26,24,21,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-radius:20px; padding:4px 10px 4px 4px; z-index:2; color:#fff; font-size:11px; font-weight:500;}
+  .story-post .play-btn{width:40px; height:40px; font-size:15px;}
+
+  /* ---- Testimonial videos ("Eles pararam...") ---- */
+  .testi-grid{display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; cursor:grab;}
+  .testi-grid.dragging{cursor:grabbing; scroll-behavior:auto;}
+  .testi-grid::-webkit-scrollbar{display:none;}
+  .testi-item{flex-shrink:0; width:150px;}
+  .testi-photo{aspect-ratio:1; border-radius:var(--radius-lg); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#E7DCC4,#D8C9A6); margin-bottom:10px;}
+  .testi-photo .placeholder-tag{position:absolute; top:6px; left:6px; font-size:8px; padding:2px 5px;}
+  .testi-item .tq{font-size:12px; font-style:italic; color:var(--ink-soft); line-height:1.45; margin-bottom:6px;}
+  .testi-item .tn{font-size:11px; color:var(--ink-mute);}
+
+  /* ---- Before/after slider ---- */
+  .ba-wrap{padding:0 20px;}
+  .ba-slider{position:relative; aspect-ratio:3/4; border-radius:var(--radius-lg); overflow:hidden; user-select:none; border:1px dashed var(--ink-mute);}
+  .ba-layer{position:absolute; inset:0; display:flex; align-items:flex-end; padding:14px;}
+  .ba-after{background:linear-gradient(160deg,#3A4A2C,#1A1815);}
+  .ba-before{background:linear-gradient(160deg,#D8C9A6,#C4B48C);}
+  .ba-clip{position:absolute; inset:0; width:50%; overflow:hidden;}
+  .ba-clip .ba-layer{width:200%;}
+  .ba-tag{color:#fff; font-family:var(--mono); font-size:10.5px; background:rgba(0,0,0,0.45); padding:4px 9px; border-radius:4px;}
+  .ba-before .ba-tag{color:var(--ink);}
+  .ba-handle{position:absolute; top:0; bottom:0; left:50%; width:0; z-index:3; pointer-events:none;}
+  .ba-handle-line{position:absolute; top:0; bottom:0; left:-1px; width:2px; background:#fff;}
+  .ba-handle-grip{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:38px; height:38px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:15px; box-shadow:0 3px 10px rgba(0,0,0,0.25);}
+  .ba-range{position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:ew-resize; z-index:4; margin:0;}
+
+  /* ---- Styles row (video autoplay) ---- */
+  .styles-scroll{display:flex; gap:16px; overflow-x:auto; padding:4px 20px 8px; scrollbar-width:none; cursor:grab;}
+  .styles-scroll.dragging{cursor:grabbing;}
+  .styles-scroll::-webkit-scrollbar{display:none;}
+  .style-item{flex-shrink:0; text-align:center; width:78px;}
+  .style-circle{width:74px; height:74px; border-radius:50%; border:1px solid var(--line); overflow:hidden; margin-bottom:8px; position:relative; background:var(--bg-card);}
+  .style-circle video, .style-circle img{width:100%; height:100%; object-fit:cover;}
+  .style-item span{font-size:11px; color:var(--ink-soft); font-weight:500;}
+
+  /* ---- Na prática ---- */
+  .pratica-grid{display:flex; flex-direction:column; gap:18px; margin-bottom:22px;}
+  .pratica-text p{font-size:13.5px; color:var(--ink-soft); line-height:1.6; margin-bottom:12px;}
+  .pratica-video{aspect-ratio:16/11; border-radius:var(--radius-lg); border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#221F19,#1A1815); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .pratica-video .placeholder-tag{position:absolute; top:10px; left:10px;}
+  .pratica-video .duration{position:absolute; bottom:10px; right:10px; color:#fff; font-family:var(--mono); font-size:10px; background:rgba(0,0,0,0.5); padding:3px 7px; border-radius:4px;}
+  .steps4{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .step4-card{background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:14px 12px;}
+  .step4-num{width:22px; height:22px; border-radius:50%; background:var(--accent); color:#fff; font-family:var(--mono); font-size:11px; display:flex; align-items:center; justify-content:center; margin-bottom:10px;}
+  .step4-card b{font-family:var(--serif); font-size:13px; font-weight:500; display:block; line-height:1.3;}
+
+  /* ---- "É pra você / Não é pra você" ---- */
+  .qualifier-card{border-radius:var(--radius-lg); padding:22px 20px; margin-bottom:14px;}
+  .qualifier-card.no{background:var(--dark); color:var(--dark-text);}
+  .qualifier-card.yes{background:var(--accent-deep); color:var(--dark-text);}
+  .qualifier-title{font-family:var(--serif); font-size:19px; font-weight:500; line-height:1.3; margin-bottom:16px;}
+  .qualifier-title .hl-no{color:#E8756A;}
+  .qualifier-title .hl-yes{color:#B9D98A;}
+  .qualifier-list{display:flex; flex-direction:column; gap:12px;}
+  .qualifier-list li{display:flex; gap:10px; align-items:flex-start; list-style:none; font-size:13px; line-height:1.5; color:#E4DCC9;}
+  .qualifier-list i{flex-shrink:0; margin-top:2px; font-size:16px;}
+  .qualifier-card.no .qualifier-list i{color:#E8756A;}
+  .qualifier-card.yes .qualifier-list i{color:#B9D98A;}
+
+
+  footer{background:var(--dark); color:var(--dark-text); padding:8px 20px 90px;}
+  footer .wordmark{color:var(--dark-text); margin:22px 0 4px; text-align:center;}
+  footer > p.tagline{font-size:11.5px; color:#9C9384; line-height:1.6; text-align:center; margin-bottom:8px;}
+
+  .footer-sec{border-bottom:1px solid rgba(255,255,255,0.14); padding:18px 0;}
+  .footer-sec-head{display:flex; align-items:center; justify-content:space-between; cursor:pointer;}
+  .footer-sec-head b{font-family:var(--serif); font-size:15px; font-weight:500;}
+  .footer-sec-head i{color:#B8AE9C; font-size:16px; transition:transform .2s ease;}
+  .footer-sec.open .footer-sec-head i{transform:rotate(45deg);}
+  .footer-links{display:none; flex-direction:column; gap:12px; margin-top:16px;}
+  .footer-sec.open .footer-links{display:flex;}
+  .footer-links a{font-size:13px; color:#D8D0C0; text-decoration:none;}
+
+  .footer-social{display:flex; justify-content:center; gap:22px; padding:22px 0;}
+  .footer-social i{font-size:19px; color:var(--dark-text);}
+
+  .footer-pay-label{font-family:var(--serif); font-size:14px; margin-bottom:12px;}
+  .footer-pay-row{display:flex; flex-wrap:wrap; gap:8px; padding-bottom:22px; border-bottom:1px solid rgba(255,255,255,0.14); margin-bottom:22px;}
+  .pay-badge{font-family:var(--mono); font-size:9.5px; font-weight:500; color:var(--ink); background:#F0E9DA; padding:6px 9px; border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="ribbon">O fim do homem genérico</div>
+
+  <header>
+    <div class="logo-lockup">
+      <svg class="logo-mark" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10,18 C10,12 16,9 24,7 C27,20 27,20 24,34 C20,45 20,45 24,56 C27,68 27,68 24,83 C16,81 10,78 10,72 Z" fill="var(--accent)"/>
+        <path d="M50,18 C50,12 44,9 36,7 C33,20 33,20 36,34 C40,45 40,45 36,56 C33,68 33,68 36,83 C44,81 50,78 50,72 Z" fill="var(--accent)"/>
+      </svg>
+      <span class="logo-wordmark">cerne</span>
+    </div>
+    <div class="header-right">
+      <span>Entrar</span>
+      <i class="ti ti-menu-2"></i>
+    </div>
+  </header>
+
+  <div class="promo-marquee">
+    <div class="promo-track">
+      <span>App Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
+      <span>App Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
+      <span>App Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
+      <span>App Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="phone-mock">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="phone-topbar"><span class="phone-brand">CERNE</span><i class="ti ti-bell" style="font-size:13px; color:#9C9384;"></i></div>
+        <p class="phone-greeting">Bom dia, Rafael</p>
+        <p class="phone-sub">Qual a ocasião de hoje?</p>
+        <div class="phone-tabs">
+          <div class="phone-tab on">Trabalho</div>
+          <div class="phone-tab">Encontro</div>
+          <div class="phone-tab">Viagem</div>
+        </div>
+        <div class="phone-reco-label"><span>Recomendado para você</span><span>Ver todas</span></div>
+        <div class="phone-looks-row">
+          <div class="phone-look" style="background:linear-gradient(160deg,#3A3128,#221F19);"><div class="plabel">Clássico</div></div>
+          <div class="phone-look" style="background:linear-gradient(160deg,#4A3E30,#2A261F);"><div class="plabel">Distinto</div></div>
+          <div class="phone-look" style="background:linear-gradient(160deg,#3A4438,#221F19);"><div class="plabel">Urbano</div></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="eyebrow">Cerne App</p>
+    <h1>Mais de 1.000 looks prontos para você nunca mais ficar sem saber o que vestir.</h1>
+    <p class="hero-sub">Escolha a ocasião, encontre a combinação e monte seu look em poucos minutos.</p>
+
+    <div class="rating-chip">
+      <span class="stars">★★★★★</span> 4,9 · Homens vestindo com intenção
+      <span class="placeholder-tag" style="margin-left:2px;">Exemplo</span>
+    </div>
+
+    <div class="purchase-options" id="purchase-options">
+      <label class="purchase-option" data-option="cerne">
+        <input type="radio" name="purchase-choice" value="cerne">
+        <div class="po-radio"></div>
+        <div class="po-body">
+          <div class="po-title">Comprar apenas Cerne</div>
+        </div>
+        <div class="po-price">R$159,90</div>
+      </label>
+
+      <label class="purchase-option selected" data-option="combo">
+        <span class="po-badge">Recomendado</span>
+        <input type="radio" name="purchase-choice" value="combo" checked>
+        <div class="po-radio"></div>
+        <div class="po-body">
+          <div class="po-title">Comprar Cerne + Calendário de Looks</div>
+          <div class="po-sub">Aproveite a promoção do combo!</div>
+        </div>
+        <div class="po-price-wrap">
+          <div class="po-price">R$119,90</div>
+          <div class="po-price-old">R$256,90</div>
+        </div>
+      </label>
+    </div>
+
+    <!-- TROCAR href pelo link de checkout real da Hotmart (um link pra cada opção, trocado via JS) -->
+    <a href="#" class="cta-btn" id="main-cta-btn" style="margin-top:14px;">Comprar agora</a>
+    <p style="text-align:center; font-size:12px; color:var(--ink-mute); margin-top:9px;">ou 12x de R$12,40</p>
+    <div class="trust-line">
+      <span><i class="ti ti-bolt"></i> Acesso imediato</span>
+      <span><i class="ti ti-shield-check"></i> Compra segura</span>
+    </div>
+    <p class="lifetime-line"><i class="ti ti-infinity"></i> Pague uma única vez. Acesse para sempre.</p>
+
+    <div class="detail-videos">
+      <p class="detail-videos-title">Descubra cada detalhe em vídeo</p>
+      <div class="detail-videos-row">
+        <div class="detail-video-circle" data-video></div>
+        <div class="detail-video-circle" data-video></div>
+        <div class="detail-video-circle" data-video></div>
+      </div>
+    </div>
+
+    <div class="check-row-band">
+      <div class="check-row">
+        <span><i class="ti ti-circle-check-filled"></i> Looks por ocasião</span>
+        <span><i class="ti ti-circle-check-filled"></i> Seu estilo pessoal</span>
+        <span><i class="ti ti-circle-check-filled"></i> Consultor Cerne</span>
+        <span><i class="ti ti-circle-check-filled"></i> Lista de compras</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VÍDEO PRINCIPAL — só o vídeo, sem texto sobreposto -->
+  <section style="padding-top:0; padding-bottom:8px;">
+    <div class="video-hero">
+      <span class="placeholder-tag">Vídeo de exemplo</span>
+      <div class="play-btn"><i class="ti ti-player-play-filled"></i></div>
+    </div>
+  </section>
+
+  <!-- ESPAÇO RESERVADO PRA BANNER DE PROMOÇÃO -->
+  <section style="padding-top:0; padding-bottom:8px;">
+    <div class="promo-banner-slot">
+      <span class="placeholder-tag" style="position:absolute; top:10px; left:10px;">Banner de exemplo</span>
+      <p>Espaço reservado pro banner de promoção<br>(ex: "compre 2 e ganhe frete grátis")</p>
+    </div>
+  </section>
+
+  <!-- NÃO É UM CURSO -->
+  <div class="split-note">
+    <i class="ti ti-quote"></i>
+    <p>Não é um curso. É o app que você abre quando não sabe o que vestir.</p>
+  </div>
+
+  <!-- AVALIAÇÕES / DESCRIÇÃO -->
+  <section style="padding-top:22px; padding-bottom:8px;">
+    <div class="accordion" id="accordion">
+      <div class="accordion-item" data-item="reviews">
+        <div class="accordion-head" data-toggle>
+          <div class="ah-left">
+            <b>Avaliações (743)</b>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="stars-mini">★★★★★</span>
+            <i class="ti ti-chevron-down chev"></i>
+          </div>
+        </div>
+        <div class="accordion-body">
+          <span class="placeholder-tag" style="margin-bottom:14px; display:inline-block;">Avaliações de exemplo</span>
+          <div class="rev-summary">
+            <div class="rev-score">4.8</div>
+            <div class="rev-score-sub">★★★★★<br>Selecionamos aqui as 10 melhores avaliações entre todas as que recebemos.</div>
+          </div>
+          <div class="rev-bars">
+            <div class="rev-bar-row"><span>5</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:82%;"></div></div></div>
+            <div class="rev-bar-row"><span>4</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:12%;"></div></div></div>
+            <div class="rev-bar-row"><span>3</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:4%;"></div></div></div>
+            <div class="rev-bar-row"><span>2</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:1%;"></div></div></div>
+            <div class="rev-bar-row"><span>1</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:1%;"></div></div></div>
+          </div>
+          <div class="rev-sort"><select><option>Mais recente</option><option>Mais úteis</option></select></div>
+
+          <div class="rev-card">
+            <span class="stars-mini">★★★★★</span>
+            <b>Amei demais!</b>
+            <div class="rev-meta"><i class="ti ti-circle-check-filled"></i> Comprador verificado</div>
+            <p class="rev-text">Superou minhas expectativas! Uso praticamente todo dia antes de sair de casa.</p>
+          </div>
+          <div class="rev-card">
+            <span class="stars-mini">★★★★★</span>
+            <b>Mudou minha rotina</b>
+            <div class="rev-meta"><i class="ti ti-circle-check-filled"></i> Comprador verificado</div>
+            <p class="rev-text">Parei de ficar 20 minutos parado no guarda-roupa sem saber o que vestir.</p>
+          </div>
+          <div class="rev-card">
+            <span class="stars-mini">★★★★★</span>
+            <b>Recomendo muito</b>
+            <div class="rev-meta"><i class="ti ti-circle-check-filled"></i> Comprador verificado</div>
+            <p class="rev-text">Prático, direto e realmente ajudou a organizar meu estilo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-item="desc">
+        <div class="accordion-head" data-toggle>
+          <div class="ah-left"><b>Descrição</b></div>
+          <i class="ti ti-chevron-down chev"></i>
+        </div>
+        <div class="accordion-body">
+          <p class="desc-text">A Cerne é o aplicativo de identidade e estilo masculino com mais de 1.000 combinações prontas para diferentes estilos, climas e ocasiões. Descubra seu estilo, escolha para onde vai, e receba o look — adaptado ao que você já tem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARTILHE O SEU LOOK -->
+  <section style="padding-top:8px;">
+    <p class="section-title" style="text-align:left;">Compartilhe o seu look</p>
+    <p class="share-note">Essa é uma parte da nossa comunidade! Quer aparecer na nossa galeria? É só marcar <b>@vistacomcerne</b> nas suas fotos do Instagram e ela pode ser escolhida para aparecer aqui.</p>
+    <div class="verified-badge"><i class="ti ti-circle-check-filled"></i> Fotos reais de clientes da Cerne</div>
+
+    <div class="community-tabs">
+      <div class="community-tab active" data-tab="comunidade">Comunidade</div>
+      <div class="community-tab" data-tab="story">Marcaram no story</div>
+    </div>
+
+    <div class="community-grid" id="tab-comunidade"></div>
+    <button class="ver-mais-btn" id="ver-mais-comunidade">Ver mais</button>
+    <div class="community-grid" id="tab-story" style="display:none;"></div>
+    <button class="ver-mais-btn" id="ver-mais-story" style="display:none;">Ver mais</button>
+  </section>
+
+  <!-- ELES PARARAM DE VESTIR QUALQUER COISA -->
+  <section>
+    <p class="section-title">Eles pararam de vestir qualquer coisa.</p>
+    <div class="testi-grid">
+      <div class="testi-item">
+        <div class="testi-photo"><span class="placeholder-tag">Exemplo</span><div class="play-btn"></div></div>
+        <p class="tq">"Melhor decisão. Finalmente parei de errar no look."</p>
+        <p class="tn">— Cliente exemplo</p>
+      </div>
+      <div class="testi-item">
+        <div class="testi-photo" style="background:linear-gradient(160deg,#EFE7D6,#DFD3B8);"><span class="placeholder-tag">Exemplo</span><div class="play-btn"></div></div>
+        <p class="tq">"Agora me visto com intenção todos os dias."</p>
+        <p class="tn">— Cliente exemplo</p>
+      </div>
+      <div class="testi-item">
+        <div class="testi-photo"><span class="placeholder-tag">Exemplo</span><div class="play-btn"></div></div>
+        <p class="tq">"Prático, direto e mudou meu visual."</p>
+        <p class="tn">— Cliente exemplo</p>
+      </div>
+      <div class="testi-item">
+        <div class="testi-photo" style="background:linear-gradient(160deg,#EFE7D6,#DFD3B8);"><span class="placeholder-tag">Exemplo</span><div class="play-btn"></div></div>
+        <p class="tq">"Me sinto mais seguro e confiante."</p>
+        <p class="tn">— Cliente exemplo</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="promo-marquee">
+    <div class="promo-track">
+      <span>+1000 Looks Prontos Para Você</span>
+      <span>+1000 Looks Prontos Para Você</span>
+      <span>+1000 Looks Prontos Para Você</span>
+      <span>+1000 Looks Prontos Para Você</span>
+      <span>+1000 Looks Prontos Para Você</span>
+      <span>+1000 Looks Prontos Para Você</span>
+    </div>
+  </div>
+
+  <!-- DO GENÉRICO À PRESENÇA (slider antes/depois) -->
+  <section>
+    <p class="section-title">Do genérico à presença.</p>
+    <div class="ba-wrap">
+      <div class="ba-slider" id="ba-slider">
+        <div class="ba-layer ba-after"><span class="ba-tag">Depois: com intenção</span></div>
+        <div class="ba-clip" id="ba-clip"><div class="ba-layer ba-before"><span class="ba-tag">Antes: qualquer coisa</span></div></div>
+        <div class="ba-handle" id="ba-handle"><div class="ba-handle-line"></div><div class="ba-handle-grip"><i class="ti ti-arrows-horizontal"></i></div></div>
+        <input type="range" class="ba-range" id="ba-range" min="0" max="100" value="50">
+      </div>
+      <p style="text-align:center; margin-top:8px;"><span class="placeholder-tag">Fotos de exemplo — trocar por antes/depois reais</span></p>
+    </div>
+  </section>
+
+  <!-- ESTE APP É / NÃO É PARA VOCÊ -->
+  <section style="padding-bottom:8px;">
+    <div class="qualifier-card no">
+      <p class="qualifier-title">Esse app <span class="hl-no">não</span> é pra você que:</p>
+      <ul class="qualifier-list">
+        <li><i class="ti ti-circle-minus"></i> Está satisfeito exatamente do jeito que se veste hoje e não busca nenhuma mudança;</li>
+        <li><i class="ti ti-circle-minus"></i> Está procurando um curso com aulas, módulos e certificado;</li>
+        <li><i class="ti ti-circle-minus"></i> Prefere que alguém escolha tudo por você, sem nenhuma decisão sua;</li>
+        <li><i class="ti ti-circle-minus"></i> Só quer "ver" ideias, sem intenção real de aplicar no dia a dia.</li>
+      </ul>
+    </div>
+
+    <div class="qualifier-card yes">
+      <p class="qualifier-title">Esse app <span class="hl-yes">é</span> pra você que:</p>
+      <ul class="qualifier-list">
+        <li><i class="ti ti-circle-check"></i> Quer se vestir com mais segurança e intenção, mas não quer estudar moda a fundo;</li>
+        <li><i class="ti ti-circle-check"></i> Já é respeitado no que faz, mas sente que a imagem ainda não acompanha isso;</li>
+        <li><i class="ti ti-circle-check"></i> Tem um compromisso importante chegando (reunião, encontro, evento) e não quer perder tempo decidindo o look;</li>
+        <li><i class="ti ti-circle-check"></i> Sente que o guarda-roupa está cheio, mas nunca tem "nada pra vestir";</li>
+        <li><i class="ti ti-circle-check"></i> Quer ser reconhecido pela própria identidade, não por copiar o estilo de outra pessoa.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SEU ESTILO. COM DIREÇÃO. -->
+  <section style="padding-top:8px;">
+    <p class="section-title">Seu estilo. Com direção.</p>
+    <div class="styles-scroll" id="styles-scroll"></div>
+    <p style="text-align:center; font-size:11px; color:var(--ink-mute); margin-top:4px;">Vídeos em loop automático — adicionar clipes reais depois</p>
+  </section>
+
+  <!-- O QUE É A CERNE NA PRÁTICA -->
+  <section>
+    <div class="pratica-grid">
+      <div class="pratica-text">
+        <p class="section-title" style="text-align:left;">O que é a Cerne, na prática?</p>
+        <p>Um aplicativo com mais de 1.000 combinações de roupas para diferentes estilos, climas e ocasiões.</p>
+        <p>Vai trabalhar? Tem um encontro? Uma viagem? Uma reunião importante? Abra a Cerne e encontre o look.</p>
+      </div>
+      <div class="pratica-video">
+        <span class="placeholder-tag">Vídeo de exemplo</span>
+        <div class="play-btn"><i class="ti ti-player-play-filled"></i></div>
+        <div class="duration">00:45</div>
+      </div>
+    </div>
+
+    <p style="font-family:var(--serif); font-size:16px; font-weight:500; text-align:center; margin-bottom:16px;">Como funciona em 4 passos simples</p>
+    <div class="steps4">
+      <div class="step4-card"><div class="step4-num">1</div><b>Diga para onde você vai</b></div>
+      <div class="step4-card"><div class="step4-num">2</div><b>Escolha seu estilo</b></div>
+      <div class="step4-card"><div class="step4-num">3</div><b>Veja looks completos</b></div>
+      <div class="step4-card"><div class="step4-num">4</div><b>Monte com o que você já tem</b></div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section style="padding-bottom:8px;">
+    <div class="promo-banner-slot" style="margin-bottom:16px;">
+      <span class="placeholder-tag" style="position:absolute; top:10px; left:10px;">Banner de exemplo</span>
+      <p>Espaço reservado pro banner de promoção<br>(ex: "compre 2 e ganhe frete grátis")</p>
+    </div>
+    <a href="#" class="cta-btn" style="margin-bottom:12px;">Quero a Cerne + Calendário de Looks</a>
+    <p style="text-align:center; font-size:11.5px; color:var(--ink-mute);">Pagamento único · Acesso vitalício · Sem mensalidade</p>
+  </section>
+
+  <!-- VÍDEO ANTES DO CARROSSEL DE DETALHES -->
+  <section style="padding-bottom:8px;">
+    <div class="video-hero">
+      <span class="placeholder-tag">Vídeo de exemplo</span>
+      <div class="play-btn"><i class="ti ti-player-play-filled"></i></div>
+    </div>
+  </section>
+
+  <!-- DESCUBRA CADA DETALHE EM VÍDEO (carrossel vertical, avança sozinho) -->
+  <section style="padding-bottom:44px; padding-top:8px;">
+    <p class="section-title">Descubra cada detalhe em vídeo</p>
+    <div class="detail-carousel" id="detail-carousel"></div>
+    <p style="text-align:center; font-size:11px; color:var(--ink-mute); margin-top:10px;">Passa sozinho pro próximo quando o vídeo termina</p>
+  </section>
+
+  <footer>
+    <div class="footer-sec" data-footer-sec>
+      <div class="footer-sec-head" data-footer-toggle>
+        <b>Departamentos</b>
+        <i class="ti ti-plus"></i>
+      </div>
+      <div class="footer-links">
+        <a href="#">Política de Reembolso</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">Informações de Contato</a>
+        <a href="#">Aviso Legal</a>
+      </div>
+    </div>
+
+    <div class="footer-sec" data-footer-sec>
+      <div class="footer-sec-head" data-footer-toggle>
+        <b>Navegação</b>
+        <i class="ti ti-plus"></i>
+      </div>
+      <div class="footer-links">
+        <a href="#">Início</a>
+        <a href="#">Sobre a Cerne</a>
+        <a href="#">Comunidade</a>
+        <a href="#">Perguntas Frequentes</a>
+        <a href="#">Contato</a>
+        <a href="#">Entrar</a>
+      </div>
+    </div>
+
+    <div class="footer-social">
+      <a href="https://www.instagram.com/vistacomcerne" target="_blank" rel="noopener" aria-label="Instagram da Cerne" style="display:flex; align-items:center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--dark-text)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.3" cy="6.7" r="1.1" fill="var(--dark-text)" stroke="none"/></svg>
+      </a>
+      <i class="ti ti-brand-facebook"></i>
+      <i class="ti ti-brand-youtube"></i>
+    </div>
+
+    <p class="footer-pay-label">Meios de pagamento</p>
+    <div class="footer-pay-row">
+      <span class="pay-badge">VISA</span>
+      <span class="pay-badge">MASTERCARD</span>
+      <span class="pay-badge">AMEX</span>
+      <span class="pay-badge">ELO</span>
+      <span class="pay-badge">PIX</span>
+      <span class="pay-badge">BOLETO</span>
+    </div>
+
+    <div class="logo-lockup" style="justify-content:center; margin:22px 0 4px;">
+      <svg class="logo-mark" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10,18 C10,12 16,9 24,7 C27,20 27,20 24,34 C20,45 20,45 24,56 C27,68 27,68 24,83 C16,81 10,78 10,72 Z" fill="var(--accent)"/>
+        <path d="M50,18 C50,12 44,9 36,7 C33,20 33,20 36,34 C40,45 40,45 36,56 C33,68 33,68 36,83 C44,81 50,78 50,72 Z" fill="var(--accent)"/>
+      </svg>
+      <span class="logo-wordmark">cerne</span>
+    </div>
+    <p class="tagline">Não vestimos igual. Vestimos com intenção.<br>© 2026 Cerne. Todos os direitos reservados.</p>
+  </footer>
+
+</div>
+
+<!-- Bolinha de vídeo flutuante — arrasta pra mover, toque curto abre em tela cheia -->
+<div class="floating-video-bubble" id="floating-bubble">
+  <video autoplay muted loop playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23DFD3B8'/%3E%3C/svg%3E">
+    <!-- <source src="videos/bolha-flutuante.mp4" type="video/mp4"> -->
+  </video>
+  <div class="circle-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+</div>
+<div class="floating-bubble-label" id="floating-bubble-label">Detalhes em vídeo</div>
+
+<div class="video-lightbox" id="video-lightbox">
+  <div class="video-lightbox-close" id="video-lightbox-close"><i class="ti ti-x"></i></div>
+  <video id="video-lightbox-video" controls autoplay playsinline></video>
+</div>
+
+<div class="sticky-cta-bar" id="sticky-cta-bar">
+  <div class="sc-price"><b>R$119,90 à vista</b><span>ou 12x de R$12,40</span></div>
+  <!-- TROCAR href pelo link de checkout real da Hotmart -->
+  <a href="#" class="cta-btn">Comprar agora</a>
+</div>
+
+<script>
+// ---------- ícones dos 7 estilos (reaproveitados do app CERNE) ----------
+const STYLE_ICONS = {
+  'Autêntico': `<polygon points="16,8 64,8 60,42 20,42" fill="#DDD3BE"/><circle cx="28" cy="16" r="3" fill="#B8563A"/><circle cx="42" cy="22" r="3" fill="#B8563A"/><circle cx="52" cy="14" r="3" fill="#B8563A"/><circle cx="34" cy="32" r="3" fill="#B8563A"/><circle cx="50" cy="34" r="3" fill="#B8563A"/><polygon points="20,46 38,46 35,78 24,78" fill="#B9C29E"/><polygon points="42,46 60,46 56,78 45,78" fill="#B9C29E"/><rect x="18" y="86" width="22" height="10" rx="5" fill="#8B8271"/><rect x="40" y="86" width="22" height="10" rx="5" fill="#8B8271"/>`,
+  'Distinto': `<polygon points="14,8 66,8 62,42 18,42" fill="#C9BFA8"/><polygon points="34,8 40,22 28,14" fill="#F7F2E6"/><polygon points="46,8 40,22 52,14" fill="#F7F2E6"/><rect x="37" y="14" width="6" height="24" rx="1" fill="#B8563A"/><rect x="20" y="46" width="16" height="32" fill="#DDD3BE"/><rect x="44" y="46" width="16" height="32" fill="#DDD3BE"/><ellipse cx="28" cy="90" rx="12" ry="6" fill="#8B8271"/><ellipse cx="52" cy="90" rx="12" ry="6" fill="#8B8271"/>`,
+  'Dinâmico': `<polygon points="12,8 36,8 32,42 14,40" fill="#B9C29E"/><polygon points="68,8 44,8 48,42 66,40" fill="#B9C29E"/><rect x="34" y="10" width="12" height="30" rx="3" fill="#DDD3BE"/><polygon points="22,46 36,46 33,78 24,78" fill="#C9BFA8"/><polygon points="44,46 58,46 56,78 47,78" fill="#C9BFA8"/><rect x="18" y="86" width="20" height="9" rx="4" fill="#8B8271"/><rect x="42" y="86" width="20" height="9" rx="4" fill="#8B8271"/>`,
+  'Magnético': `<rect x="32" y="10" width="16" height="34" rx="4" fill="#DDD3BE"/><polygon points="14,8 34,10 30,44 18,42" fill="#B8563A"/><polygon points="66,8 46,10 50,44 62,42" fill="#B8563A"/><polygon points="26,46 40,46 37,78 29,78" fill="#C9BFA8"/><polygon points="42,46 56,46 51,78 43,78" fill="#C9BFA8"/><ellipse cx="32" cy="90" rx="10" ry="5" fill="#8B8271"/><ellipse cx="50" cy="90" rx="10" ry="5" fill="#8B8271"/>`,
+  'Sofisticado': `<polygon points="30,50 70,50 65,110 35,110" fill="#C9BFA8"/><polygon points="46,50 50,70 40,58" fill="#F7F2E6"/><polygon points="54,50 50,70 60,58" fill="#F7F2E6"/><rect x="47" y="58" width="6" height="40" fill="#B8563A"/><rect x="34" y="112" width="15" height="55" fill="#DDD3BE"/><rect x="51" y="112" width="15" height="55" fill="#DDD3BE"/>`,
+  'Essencial': `<rect x="36" y="4" width="8" height="6" fill="#DDD3BE"/><polygon points="24,10 56,10 52,42 28,42" fill="#DDD3BE"/><rect x="28" y="46" width="10" height="32" fill="#C9BFA8"/><rect x="42" y="46" width="10" height="32" fill="#C9BFA8"/><ellipse cx="33" cy="88" rx="9" ry="4" fill="#8B8271"/><ellipse cx="47" cy="88" rx="9" ry="4" fill="#8B8271"/>`,
+  'Urbano': `<ellipse cx="16" cy="6" rx="9" ry="5" fill="#B8563A"/><polygon points="6,12 74,12 68,44 12,44" fill="#B9C29E"/><rect x="28" y="26" width="24" height="12" rx="3" fill="#C9BFA8"/><polygon points="14,46 40,46 36,78 18,78" fill="#DDD3BE"/><polygon points="42,46 68,46 64,78 46,78" fill="#DDD3BE"/><rect x="16" y="86" width="22" height="11" rx="5" fill="#8B8271"/><rect x="42" y="86" width="22" height="11" rx="5" fill="#8B8271"/>`
+};
+const scroll = document.getElementById('styles-scroll');
+Object.entries(STYLE_ICONS).forEach(([name, svg]) => {
+  const item = document.createElement('div');
+  item.className = 'style-item';
+  // <video> pronto para receber um clipe real (autoplay, loop, sem controles, sem pausar).
+  // Enquanto não há vídeo real, o poster (nossa ilustração) fica visível no lugar.
+  item.innerHTML = `
+    <div class="style-circle">
+      <video autoplay muted loop playsinline disablepictureinpicture controlsList="nodownload noplaybackrate nofullscreen"
+        poster="data:image/svg+xml,${encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 80 100\'>' + svg + '</svg>')}">
+        <!-- <source src="videos/estilo-${name.toLowerCase()}.mp4" type="video/mp4"> -->
+      </video>
+    </div>
+    <span>${name}</span>
+  `;
+  scroll.appendChild(item);
+});
+
+// ---------- grid "Comunidade" (avatares ilustrados no lugar de fotos reais) ----------
+const styleNames = Object.keys(STYLE_ICONS);
+const HANDLE_POOL = ['@rafa.estilo', '@lucas.vc', '@bruno.certo', '@diego.a', '@gui.santos', '@matheus.a', '@joao_vc', '@felipe.m', '@thiago.r', '@caio_p', '@andre.vc', '@pedro.est', '@vitor.a', '@renan.m', '@yuri.est', '@leo.vc'];
+
+const IG_ICON_SVG = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>`;
+function buildCommunityPosts(){
+  const comGrid = document.getElementById('tab-comunidade');
+  HANDLE_POOL.forEach((handle, i) => {
+    const icon = STYLE_ICONS[styleNames[i % styleNames.length]];
+    const div = document.createElement('div');
+    div.className = 'community-post';
+    if (i >= 8) div.style.display = 'none';
+    div.dataset.batch = i >= 8 ? 'more' : 'base';
+    div.innerHTML = `
+      <div class="cp-photo">
+        <span class="placeholder-tag">Ex.</span>
+        <svg viewBox="0 0 80 100">${icon}</svg>
+        <div class="cp-handle-badge">
+          <span class="cp-ig-icon">${IG_ICON_SVG}</span>
+          <span class="handle-text">${handle}</span>
+        </div>
+      </div>
+      <div class="cp-verified-badge"><i class="ti ti-circle-check-filled"></i> Cliente Cerne</div>
+    `;
+    comGrid.appendChild(div);
+  });
+}
+function buildStoryPosts(){
+  const storyGrid = document.getElementById('tab-story');
+  HANDLE_POOL.forEach((handle, i) => {
+    const div = document.createElement('div');
+    div.className = 'story-post';
+    if (i >= 8) div.style.display = 'none';
+    div.dataset.batch = i >= 8 ? 'more' : 'base';
+    div.innerHTML = `
+      <span class="placeholder-tag" style="position:absolute; top:8px; left:8px; z-index:2;">Ex.</span>
+      <div class="play-btn"></div>
+      <div class="story-handle"><span class="cp-ig-icon">${IG_ICON_SVG}</span>${handle}</div>
+    `;
+    storyGrid.appendChild(div);
+  });
+}
+buildCommunityPosts();
+buildStoryPosts();
+
+document.getElementById('ver-mais-comunidade').addEventListener('click', function(){
+  document.querySelectorAll('#tab-comunidade [data-batch="more"]').forEach(el => el.style.display = '');
+  this.style.display = 'none';
+});
+document.getElementById('ver-mais-story').addEventListener('click', function(){
+  document.querySelectorAll('#tab-story [data-batch="more"]').forEach(el => el.style.display = '');
+  this.style.display = 'none';
+});
+
+// ---------- accordion ----------
+document.querySelectorAll('.accordion-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const item = head.closest('.accordion-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// ---------- tabs Comunidade / Marcaram no story ----------
+document.querySelectorAll('.community-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.community-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const isStory = tab.dataset.tab === 'story';
+    document.getElementById('tab-comunidade').style.display = isStory ? 'none' : 'grid';
+    document.getElementById('tab-story').style.display = isStory ? 'grid' : 'none';
+    document.getElementById('ver-mais-comunidade').style.display = (isStory || !document.querySelector('#tab-comunidade [data-batch="more"]')) ? 'none' : 'block';
+    document.getElementById('ver-mais-story').style.display = (!isStory || !document.querySelector('#tab-story [data-batch="more"]')) ? 'none' : 'block';
+  });
+});
+
+// ---------- slider antes/depois ----------
+const baClip = document.getElementById('ba-clip');
+const baHandle = document.getElementById('ba-handle');
+const baRange = document.getElementById('ba-range');
+function updateBaSlider(val){
+  baClip.style.width = val + '%';
+  baHandle.style.left = val + '%';
+}
+baRange.addEventListener('input', (e) => updateBaSlider(e.target.value));
+updateBaSlider(50);
+
+// ---------- arrastar com o mouse nos carrosséis horizontais ----------
+function makeDraggable(el){
+  if (!el) return;
+  let isDown = false, startX, scrollStart;
+  el.addEventListener('mousedown', (e) => {
+    isDown = true;
+    el.classList.add('dragging');
+    startX = e.pageX;
+    scrollStart = el.scrollLeft;
+  });
+  window.addEventListener('mouseup', () => { isDown = false; el.classList.remove('dragging'); });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    el.scrollLeft = scrollStart - (e.pageX - startX);
+  });
+}
+makeDraggable(document.querySelector('.testi-grid'));
+makeDraggable(document.getElementById('styles-scroll'));
+
+// ---------- rodapé: seções recolhíveis ----------
+document.querySelectorAll('[data-footer-toggle]').forEach(head => {
+  head.addEventListener('click', () => {
+    head.closest('[data-footer-sec]').classList.toggle('open');
+  });
+});
+
+// ---------- lightbox de vídeo em tela cheia ----------
+function openVideoLightbox(){
+  const lb = document.getElementById('video-lightbox');
+  lb.classList.add('open');
+}
+function closeVideoLightbox(){
+  const lb = document.getElementById('video-lightbox');
+  const vid = document.getElementById('video-lightbox-video');
+  vid.pause();
+  lb.classList.remove('open');
+}
+document.getElementById('video-lightbox-close').addEventListener('click', closeVideoLightbox);
+document.getElementById('video-lightbox').addEventListener('click', (e) => {
+  if (e.target.id === 'video-lightbox') closeVideoLightbox();
+});
+
+// ---------- "Descubra cada detalhe em vídeo" — círculos fixos ----------
+const detailPosters = [STYLE_ICONS['Autêntico'], STYLE_ICONS['Sofisticado'], STYLE_ICONS['Urbano']];
+document.querySelectorAll('.detail-video-circle').forEach((el, i) => {
+  const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'>${detailPosters[i % detailPosters.length]}</svg>`);
+  el.innerHTML = `
+    <video autoplay muted loop playsinline poster="data:image/svg+xml,${svg}">
+      <!-- <source src="videos/detalhe-${i+1}.mp4" type="video/mp4"> -->
+    </video>
+    <div class="circle-play-overlay"><i class="ti ti-player-play-filled" style="font-size:14px;"></i></div>
+  `;
+  el.addEventListener('click', () => openVideoLightbox());
+});
+
+// ---------- bolinha de vídeo flutuante: arrastar ou clicar ----------
+const bubble = document.getElementById('floating-bubble');
+let bubbleDragging = false, bubbleMoved = false, bubbleStartX, bubbleStartY, bubbleOrigX, bubbleOrigY;
+bubble.addEventListener('pointerdown', (e) => {
+  bubbleDragging = true;
+  bubbleMoved = false;
+  bubbleStartX = e.clientX;
+  bubbleStartY = e.clientY;
+  const rect = bubble.getBoundingClientRect();
+  bubbleOrigX = rect.left;
+  bubbleOrigY = rect.top;
+  bubble.setPointerCapture(e.pointerId);
+});
+bubble.addEventListener('pointermove', (e) => {
+  if (!bubbleDragging) return;
+  const dx = e.clientX - bubbleStartX;
+  const dy = e.clientY - bubbleStartY;
+  if (Math.abs(dx) > 5 || Math.abs(dy) > 5) bubbleMoved = true;
+  bubble.style.left = Math.max(4, Math.min(window.innerWidth - 70, bubbleOrigX + dx)) + 'px';
+  bubble.style.top = Math.max(4, Math.min(window.innerHeight - 70, bubbleOrigY + dy)) + 'px';
+  bubble.style.right = 'auto';
+  bubble.style.bottom = 'auto';
+});
+bubble.addEventListener('pointerup', (e) => {
+  bubbleDragging = false;
+  bubble.releasePointerCapture(e.pointerId);
+  if (!bubbleMoved) openVideoLightbox();
+});
+
+// ---------- barra fixa de compra: aparece quando o botão do topo sai da tela ----------
+const heroCta = document.querySelector('.hero .cta-btn');
+const stickyBar = document.getElementById('sticky-cta-bar');
+if (heroCta && stickyBar && 'IntersectionObserver' in window){
+  const ctaObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => stickyBar.classList.toggle('show', !entry.isIntersecting));
+  }, { threshold: 0 });
+  ctaObserver.observe(heroCta);
+}
+
+// ---------- seletor de opção de compra (Cerne x Cerne + Calendário) ----------
+document.querySelectorAll('.purchase-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.purchase-option').forEach(o => {
+      o.classList.remove('selected');
+      o.querySelector('input').checked = false;
+    });
+    opt.classList.add('selected');
+    opt.querySelector('input').checked = true;
+    // TROCAR pelos links reais de checkout de cada produto na Hotmart
+    // const links = { cerne: '#', combo: '#' };
+    // document.getElementById('main-cta-btn').href = links[opt.dataset.option];
+  });
+});
+
+// ---------- faixinha "Detalhes em vídeo" some depois de 2s ----------
+setTimeout(() => {
+  const label = document.getElementById('floating-bubble-label');
+  if (label) label.classList.add('hide');
+}, 2000);
+
+// ---------- carrossel vertical "Descubra cada detalhe em vídeo" (avança sozinho) ----------
+const carousel = document.getElementById('detail-carousel');
+if (carousel){
+  const carouselPosters = [STYLE_ICONS['Distinto'], STYLE_ICONS['Magnético'], STYLE_ICONS['Urbano'], STYLE_ICONS['Essencial']];
+  carouselPosters.forEach((icon, i) => {
+    const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'>${icon}</svg>`);
+    const item = document.createElement('div');
+    item.className = 'detail-carousel-item';
+    item.innerHTML = `
+      <span class="placeholder-tag">Vídeo de exemplo</span>
+      <video muted playsinline poster="data:image/svg+xml,${svg}">
+        <!-- <source src="videos/detalhe-carrossel-${i+1}.mp4" type="video/mp4"> -->
+      </video>
+    `;
+    carousel.appendChild(item);
+  });
+
+  const carouselVideos = Array.from(carousel.querySelectorAll('video'));
+
+  // toca o vídeo que está mais visível no carrossel, pausa os demais
+  const carouselObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.6){
+        carouselVideos.forEach(v => { if (v !== entry.target) v.pause(); });
+        entry.target.play().catch(() => {});
+      }
+    });
+  }, { root: carousel, threshold: [0.6] });
+  carouselVideos.forEach(v => carouselObserver.observe(v));
+
+  // quando o vídeo atual termina, rola sozinho pro próximo (e ele auto-toca via observer acima)
+  carouselVideos.forEach((vid, idx) => {
+    vid.addEventListener('ended', () => {
+      const next = carouselVideos[(idx + 1) % carouselVideos.length];
+      next.closest('.detail-carousel-item').scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    });
+  });
+}
+
+</script>
+</body>
+</html>
