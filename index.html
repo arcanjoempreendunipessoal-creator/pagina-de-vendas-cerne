@@ -54,22 +54,10 @@
   .promo-track span::after{content:"✦"; opacity:0.6; font-size:9px;}
   @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
 
-  /* ---- Hero / phone mockup ---- */
+  /* ---- Hero / imagem real do app ---- */
   .hero{padding:6px 20px 24px;}
-  .phone-mock{background:var(--dark); border-radius:26px; padding:12px; margin-bottom:20px; box-shadow:0 18px 40px rgba(26,24,21,0.18);}
-  .phone-notch{width:70px; height:14px; background:#000; border-radius:0 0 10px 10px; margin:0 auto 6px;}
-  .phone-screen{background:#221F19; border-radius:16px; padding:14px 12px 16px; color:var(--dark-text);}
-  .phone-topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
-  .phone-brand{font-family:var(--serif); font-size:12px; letter-spacing:2px;}
-  .phone-greeting{font-family:var(--serif); font-size:15px; margin-bottom:2px;}
-  .phone-sub{font-size:10px; color:#9C9384; margin-bottom:12px;}
-  .phone-tabs{display:flex; gap:6px; margin-bottom:12px;}
-  .phone-tab{font-size:9px; padding:5px 9px; border-radius:12px; background:#332E25; color:#B8AE9C; font-family:var(--mono);}
-  .phone-tab.on{background:var(--accent); color:#fff;}
-  .phone-reco-label{font-size:9.5px; color:#9C9384; margin-bottom:8px; display:flex; justify-content:space-between;}
-  .phone-looks-row{display:flex; gap:7px;}
-  .phone-look{flex:1; aspect-ratio:0.72; border-radius:8px; overflow:hidden; position:relative;}
-  .phone-look .plabel{position:absolute; bottom:5px; left:5px; font-size:7.5px; background:rgba(0,0,0,0.55); padding:2px 5px; border-radius:3px;}
+  .hero-image-wrap{display:flex; justify-content:center; margin-bottom:8px;}
+  .hero-image{width:100%; max-width:340px; height:auto;}
 
   .eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent-deep); margin-bottom:6px;}
   h1{font-family:var(--serif); font-size:29px; font-weight:500; line-height:1.15; margin-bottom:10px;}
@@ -360,24 +348,8 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="phone-mock">
-      <div class="phone-notch"></div>
-      <div class="phone-screen">
-        <div class="phone-topbar"><span class="phone-brand">CERNE</span><i class="ti ti-bell" style="font-size:13px; color:#9C9384;"></i></div>
-        <p class="phone-greeting">Bom dia, Rafael</p>
-        <p class="phone-sub">Qual a ocasião de hoje?</p>
-        <div class="phone-tabs">
-          <div class="phone-tab on">Trabalho</div>
-          <div class="phone-tab">Encontro</div>
-          <div class="phone-tab">Viagem</div>
-        </div>
-        <div class="phone-reco-label"><span>Recomendado para você</span><span>Ver todas</span></div>
-        <div class="phone-looks-row">
-          <div class="phone-look" style="background:linear-gradient(160deg,#3A3128,#221F19);"><div class="plabel">Clássico</div></div>
-          <div class="phone-look" style="background:linear-gradient(160deg,#4A3E30,#2A261F);"><div class="plabel">Distinto</div></div>
-          <div class="phone-look" style="background:linear-gradient(160deg,#3A4438,#221F19);"><div class="plabel">Urbano</div></div>
-        </div>
-      </div>
+    <div class="hero-image-wrap">
+      <img src="images/hero-phones.png" alt="App CERNE mostrando looks recomendados e a etapa de montar o avatar" class="hero-image">
     </div>
 
     <p class="eyebrow">Cerne App</p>
