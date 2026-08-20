@@ -273,8 +273,8 @@
   .styles-scroll.dragging{cursor:grabbing;}
   .styles-scroll::-webkit-scrollbar{display:none;}
   .style-item{flex-shrink:0; text-align:center; width:78px;}
-  .style-circle{width:74px; height:74px; border-radius:50%; border:1px solid var(--line); overflow:hidden; margin-bottom:8px; position:relative; background:var(--bg-card);}
-  .style-circle video, .style-circle img{width:100%; height:100%; object-fit:cover;}
+  .style-circle{width:74px; height:74px; border-radius:50%; border:1px solid var(--line); overflow:hidden; margin-bottom:8px; position:relative; background:var(--bg-card); cursor:pointer;}
+  .style-circle video, .style-circle img{width:100%; height:100%; object-fit:cover; object-position:top center;}
   .style-item span{font-size:11px; color:var(--ink-soft); font-weight:500;}
 
   /* ---- Na prática ---- */
@@ -595,7 +595,6 @@
   <section style="padding-top:8px;">
     <p class="section-title">Seu estilo. Com direção.</p>
     <div class="styles-scroll" id="styles-scroll"></div>
-    <p style="text-align:center; font-size:11px; color:var(--ink-mute); margin-top:4px;">Vídeos em loop automático — adicionar clipes reais depois</p>
   </section>
 
   <!-- O QUE É A CERNE NA PRÁTICA -->
@@ -719,6 +718,11 @@
   <video id="video-lightbox-video" controls autoplay playsinline></video>
 </div>
 
+<div class="video-lightbox" id="image-lightbox">
+  <div class="video-lightbox-close" id="image-lightbox-close"><i class="ti ti-x"></i></div>
+  <img id="image-lightbox-img" src="" alt="Foto ampliada do estilo" style="max-width:100%; max-height:88vh; border-radius:8px; object-fit:contain;">
+</div>
+
 <div class="sticky-cta-bar" id="sticky-cta-bar">
   <div class="sc-price"><b>R$119,90 à vista</b><span>ou 12x de R$12,40</span></div>
   <a href="#" class="cta-btn" id="sticky-cta-btn">Comprar agora</a>
@@ -728,28 +732,47 @@
 // ---------- ícones dos 7 estilos (reaproveitados do app CERNE) ----------
 const STYLE_ICONS = {
   'Autêntico': `<polygon points="16,8 64,8 60,42 20,42" fill="#DDD3BE"/><circle cx="28" cy="16" r="3" fill="#B8563A"/><circle cx="42" cy="22" r="3" fill="#B8563A"/><circle cx="52" cy="14" r="3" fill="#B8563A"/><circle cx="34" cy="32" r="3" fill="#B8563A"/><circle cx="50" cy="34" r="3" fill="#B8563A"/><polygon points="20,46 38,46 35,78 24,78" fill="#B9C29E"/><polygon points="42,46 60,46 56,78 45,78" fill="#B9C29E"/><rect x="18" y="86" width="22" height="10" rx="5" fill="#8B8271"/><rect x="40" y="86" width="22" height="10" rx="5" fill="#8B8271"/>`,
-  'Distinto': `<polygon points="14,8 66,8 62,42 18,42" fill="#C9BFA8"/><polygon points="34,8 40,22 28,14" fill="#F7F2E6"/><polygon points="46,8 40,22 52,14" fill="#F7F2E6"/><rect x="37" y="14" width="6" height="24" rx="1" fill="#B8563A"/><rect x="20" y="46" width="16" height="32" fill="#DDD3BE"/><rect x="44" y="46" width="16" height="32" fill="#DDD3BE"/><ellipse cx="28" cy="90" rx="12" ry="6" fill="#8B8271"/><ellipse cx="52" cy="90" rx="12" ry="6" fill="#8B8271"/>`,
-  'Dinâmico': `<polygon points="12,8 36,8 32,42 14,40" fill="#B9C29E"/><polygon points="68,8 44,8 48,42 66,40" fill="#B9C29E"/><rect x="34" y="10" width="12" height="30" rx="3" fill="#DDD3BE"/><polygon points="22,46 36,46 33,78 24,78" fill="#C9BFA8"/><polygon points="44,46 58,46 56,78 47,78" fill="#C9BFA8"/><rect x="18" y="86" width="20" height="9" rx="4" fill="#8B8271"/><rect x="42" y="86" width="20" height="9" rx="4" fill="#8B8271"/>`,
-  'Magnético': `<rect x="32" y="10" width="16" height="34" rx="4" fill="#DDD3BE"/><polygon points="14,8 34,10 30,44 18,42" fill="#B8563A"/><polygon points="66,8 46,10 50,44 62,42" fill="#B8563A"/><polygon points="26,46 40,46 37,78 29,78" fill="#C9BFA8"/><polygon points="42,46 56,46 51,78 43,78" fill="#C9BFA8"/><ellipse cx="32" cy="90" rx="10" ry="5" fill="#8B8271"/><ellipse cx="50" cy="90" rx="10" ry="5" fill="#8B8271"/>`,
+  'Clássico': `<polygon points="14,8 66,8 62,42 18,42" fill="#C9BFA8"/><polygon points="34,8 40,22 28,14" fill="#F7F2E6"/><polygon points="46,8 40,22 52,14" fill="#F7F2E6"/><rect x="37" y="14" width="6" height="24" rx="1" fill="#B8563A"/><rect x="20" y="46" width="16" height="32" fill="#DDD3BE"/><rect x="44" y="46" width="16" height="32" fill="#DDD3BE"/><ellipse cx="28" cy="90" rx="12" ry="6" fill="#8B8271"/><ellipse cx="52" cy="90" rx="12" ry="6" fill="#8B8271"/>`,
+  'Esportivo': `<polygon points="12,8 36,8 32,42 14,40" fill="#B9C29E"/><polygon points="68,8 44,8 48,42 66,40" fill="#B9C29E"/><rect x="34" y="10" width="12" height="30" rx="3" fill="#DDD3BE"/><polygon points="22,46 36,46 33,78 24,78" fill="#C9BFA8"/><polygon points="44,46 58,46 56,78 47,78" fill="#C9BFA8"/><rect x="18" y="86" width="20" height="9" rx="4" fill="#8B8271"/><rect x="42" y="86" width="20" height="9" rx="4" fill="#8B8271"/>`,
+  'Old Money': `<rect x="32" y="10" width="16" height="34" rx="4" fill="#DDD3BE"/><polygon points="14,8 34,10 30,44 18,42" fill="#B8563A"/><polygon points="66,8 46,10 50,44 62,42" fill="#B8563A"/><polygon points="26,46 40,46 37,78 29,78" fill="#C9BFA8"/><polygon points="42,46 56,46 51,78 43,78" fill="#C9BFA8"/><ellipse cx="32" cy="90" rx="10" ry="5" fill="#8B8271"/><ellipse cx="50" cy="90" rx="10" ry="5" fill="#8B8271"/>`,
   'Sofisticado': `<polygon points="30,50 70,50 65,110 35,110" fill="#C9BFA8"/><polygon points="46,50 50,70 40,58" fill="#F7F2E6"/><polygon points="54,50 50,70 60,58" fill="#F7F2E6"/><rect x="47" y="58" width="6" height="40" fill="#B8563A"/><rect x="34" y="112" width="15" height="55" fill="#DDD3BE"/><rect x="51" y="112" width="15" height="55" fill="#DDD3BE"/>`,
-  'Essencial': `<rect x="36" y="4" width="8" height="6" fill="#DDD3BE"/><polygon points="24,10 56,10 52,42 28,42" fill="#DDD3BE"/><rect x="28" y="46" width="10" height="32" fill="#C9BFA8"/><rect x="42" y="46" width="10" height="32" fill="#C9BFA8"/><ellipse cx="33" cy="88" rx="9" ry="4" fill="#8B8271"/><ellipse cx="47" cy="88" rx="9" ry="4" fill="#8B8271"/>`,
   'Urbano': `<ellipse cx="16" cy="6" rx="9" ry="5" fill="#B8563A"/><polygon points="6,12 74,12 68,44 12,44" fill="#B9C29E"/><rect x="28" y="26" width="24" height="12" rx="3" fill="#C9BFA8"/><polygon points="14,46 40,46 36,78 18,78" fill="#DDD3BE"/><polygon points="42,46 68,46 64,78 46,78" fill="#DDD3BE"/><rect x="16" y="86" width="22" height="11" rx="5" fill="#8B8271"/><rect x="42" y="86" width="22" height="11" rx="5" fill="#8B8271"/>`
 };
+
+// ---------- fotos reais dos estilos (Seu estilo. Com direção.) ----------
+const STYLE_PHOTOS = {
+  'Autêntico': 'images/estilo-autentico.jpg',
+  'Clássico': 'images/estilo-classico.jpg',
+  'Esportivo': 'images/estilo-esportivo.jpg',
+  'Old Money': 'images/estilo-old-money.jpg',
+  'Sofisticado': 'images/estilo-sofisticado.jpg',
+  'Urbano': 'images/estilo-urbano.jpg'
+};
+function openImageLightbox(src, alt){
+  const img = document.getElementById('image-lightbox-img');
+  img.src = src;
+  img.alt = alt || '';
+  document.getElementById('image-lightbox').classList.add('open');
+}
+function closeImageLightbox(){
+  document.getElementById('image-lightbox').classList.remove('open');
+}
+document.getElementById('image-lightbox-close').addEventListener('click', closeImageLightbox);
+document.getElementById('image-lightbox').addEventListener('click', (e) => {
+  if (e.target.id === 'image-lightbox') closeImageLightbox();
+});
+
 const scroll = document.getElementById('styles-scroll');
-Object.entries(STYLE_ICONS).forEach(([name, svg]) => {
+Object.entries(STYLE_PHOTOS).forEach(([name, photoSrc]) => {
   const item = document.createElement('div');
   item.className = 'style-item';
-  // <video> pronto para receber um clipe real (autoplay, loop, sem controles, sem pausar).
-  // Enquanto não há vídeo real, o poster (nossa ilustração) fica visível no lugar.
   item.innerHTML = `
     <div class="style-circle">
-      <video autoplay muted loop playsinline disablepictureinpicture controlsList="nodownload noplaybackrate nofullscreen"
-        poster="data:image/svg+xml,${encodeURIComponent('<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 80 100\'>' + svg + '</svg>')}">
-        <!-- <source src="videos/estilo-${name.toLowerCase()}.mp4" type="video/mp4"> -->
-      </video>
+      <img src="${photoSrc}" alt="Estilo ${name}">
     </div>
     <span>${name}</span>
   `;
+  item.querySelector('.style-circle').addEventListener('click', () => openImageLightbox(photoSrc, `Estilo ${name}`));
   scroll.appendChild(item);
 });
 
@@ -972,7 +995,7 @@ setTimeout(() => {
 // ---------- carrossel vertical "Descubra cada detalhe em vídeo" (avança sozinho) ----------
 const carousel = document.getElementById('detail-carousel');
 if (carousel){
-  const carouselPosters = [STYLE_ICONS['Distinto'], STYLE_ICONS['Magnético'], STYLE_ICONS['Urbano'], STYLE_ICONS['Essencial']];
+  const carouselPosters = [STYLE_ICONS['Clássico'], STYLE_ICONS['Old Money'], STYLE_ICONS['Urbano'], STYLE_ICONS['Esportivo']];
   carouselPosters.forEach((icon, i) => {
     const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'>${icon}</svg>`);
     const item = document.createElement('div');
