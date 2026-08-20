@@ -63,9 +63,9 @@
   h1{font-family:var(--serif); font-size:29px; font-weight:500; line-height:1.15; margin-bottom:10px;}
   .hero-sub{font-size:14.5px; color:var(--ink-soft); line-height:1.55; margin-bottom:14px;}
 
-  .rating-chip{display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-mute); padding:6px 10px;
-    border:1px dashed var(--ink-mute); border-radius:20px; margin-bottom:18px; font-family:var(--sans);}
-  .rating-chip .stars{color:var(--accent); letter-spacing:1px;}
+  .rating-chip{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-mute); padding:2px 0;
+    margin-bottom:18px; font-family:var(--sans);}
+  .rating-chip .stars{color:var(--accent); letter-spacing:1px; font-size:16px;}
 
   .price-block{margin-bottom:16px;}
   .price-old{font-size:13px; color:var(--ink-mute); text-decoration:line-through; margin-bottom:2px;}
@@ -340,26 +340,25 @@
 
   <div class="promo-marquee">
     <div class="promo-track">
-      <span>App Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
-      <span>App Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
-      <span>App Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
-      <span>App Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
+      <span>Plataforma Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
+      <span>Plataforma Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
+      <span>Plataforma Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
+      <span>Plataforma Cerne + Calendário de Looks Cerne por R$119,90 — R$40 de desconto, pagamento único e acesso vitalício.</span>
     </div>
   </div>
 
   <!-- HERO -->
   <div class="hero">
     <div class="hero-image-wrap">
-      <img src="images/hero-phones.png" alt="App CERNE mostrando looks recomendados e a etapa de montar o avatar" class="hero-image">
+      <img src="images/hero-phones.png" alt="Plataforma Cerne mostrando looks recomendados e a etapa de montar o avatar" class="hero-image">
     </div>
 
-    <p class="eyebrow">Cerne App</p>
+    <p class="eyebrow">Plataforma Cerne</p>
     <h1>Mais de 1.000 looks prontos para você nunca mais ficar sem saber o que vestir.</h1>
     <p class="hero-sub">Escolha a ocasião, encontre a combinação e monte seu look em poucos minutos.</p>
 
     <div class="rating-chip">
       <span class="stars">★★★★★</span> 4,9 · Homens vestindo com intenção
-      <span class="placeholder-tag" style="margin-left:2px;">Exemplo</span>
     </div>
 
     <div class="purchase-options" id="purchase-options">
@@ -425,7 +424,7 @@
 
   <!-- BANNER DE PROMOÇÃO DO COMBO -->
   <section style="padding-top:0; padding-bottom:8px;">
-    <img src="images/promo-banner-combo.jpg" alt="Oferta especial: App Cerne + Calendário Cerne de R$256,90 por R$119,90, economize R$137, pagamento único e acesso para sempre" class="promo-banner-img">
+    <img src="images/promo-banner-combo.jpg" alt="Oferta especial: Plataforma Cerne + Calendário Cerne de R$256,90 por R$119,90, economize R$137, pagamento único e acesso para sempre" class="promo-banner-img">
   </section>
 
   <!-- NÃO É UM CURSO -->
@@ -622,7 +621,7 @@
   <!-- CTA FINAL -->
   <section style="padding-bottom:8px;">
     <img src="images/promo-banner-calendario.jpg" alt="Calendário Cerne — o look certo para cada data do ano. Looks prontos para Natal, Réveillon, Carnaval e Festa Junina." class="promo-banner-img" style="margin-bottom:16px;">
-    <a href="#" class="cta-btn" style="margin-bottom:12px;">Quero a Cerne + Calendário de Looks</a>
+    <a href="#" class="cta-btn" id="final-cta-btn" style="margin-bottom:12px;">Quero a Cerne + Calendário de Looks</a>
     <p style="text-align:center; font-size:11.5px; color:var(--ink-mute);">Pagamento único · Acesso vitalício · Sem mensalidade</p>
   </section>
 
@@ -717,8 +716,7 @@
 
 <div class="sticky-cta-bar" id="sticky-cta-bar">
   <div class="sc-price"><b>R$119,90 à vista</b><span>ou 12x de R$12,40</span></div>
-  <!-- TROCAR href pelo link de checkout real da Hotmart -->
-  <a href="#" class="cta-btn">Comprar agora</a>
+  <a href="#" class="cta-btn" id="sticky-cta-btn">Comprar agora</a>
 </div>
 
 <script>
@@ -933,6 +931,20 @@ if (heroCta && stickyBar && 'IntersectionObserver' in window){
   ctaObserver.observe(heroCta);
 }
 
+// ---------- links reais de checkout da Hotmart ----------
+const CHECKOUT_LINKS = {
+  cerne: 'https://pay.hotmart.com/J107208945D?bid=1787195138612',
+  combo: 'https://pay.hotmart.com/J107208945D?bid=1787195138612'
+};
+function applyCheckoutLink(option){
+  const url = CHECKOUT_LINKS[option] || CHECKOUT_LINKS.combo;
+  ['main-cta-btn', 'sticky-cta-btn', 'final-cta-btn'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = url;
+  });
+}
+applyCheckoutLink('combo'); // opção "combo" já vem selecionada por padrão
+
 // ---------- seletor de opção de compra (Cerne x Cerne + Calendário) ----------
 document.querySelectorAll('.purchase-option').forEach(opt => {
   opt.addEventListener('click', () => {
@@ -942,9 +954,7 @@ document.querySelectorAll('.purchase-option').forEach(opt => {
     });
     opt.classList.add('selected');
     opt.querySelector('input').checked = true;
-    // TROCAR pelos links reais de checkout de cada produto na Hotmart
-    // const links = { cerne: '#', combo: '#' };
-    // document.getElementById('main-cta-btn').href = links[opt.dataset.option];
+    applyCheckoutLink(opt.dataset.option);
   });
 });
 
