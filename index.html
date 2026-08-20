@@ -63,9 +63,10 @@
   h1{font-family:var(--serif); font-size:29px; font-weight:500; line-height:1.15; margin-bottom:10px;}
   .hero-sub{font-size:14.5px; color:var(--ink-soft); line-height:1.55; margin-bottom:14px;}
 
-  .rating-chip{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-mute); padding:2px 0;
+  .rating-chip{display:inline-flex; align-items:center; gap:8px; color:var(--ink-mute); padding:2px 0;
     margin-bottom:18px; font-family:var(--sans);}
-  .rating-chip .stars{color:var(--accent); letter-spacing:1px; font-size:16px;}
+  .rating-chip .stars{color:var(--accent); letter-spacing:1px; font-size:19px;}
+  .rating-chip .rating-number{font-size:14.5px; font-weight:600; color:var(--ink);}
 
   .price-block{margin-bottom:16px;}
   .price-old{font-size:13px; color:var(--ink-mute); text-decoration:line-through; margin-bottom:2px;}
@@ -173,6 +174,9 @@
   .video-hero .caption p{font-size:11px; color:var(--ink-mute); font-family:var(--mono);}
   .video-hero .play-btn{position:absolute; top:16px; right:16px;}
   .video-hero .placeholder-tag{position:absolute; top:16px; left:16px;}
+
+  .ambient-video{aspect-ratio:16/10; border-radius:var(--radius-lg); overflow:hidden; background:var(--ink);}
+  .ambient-video video{width:100%; height:100%; object-fit:cover; pointer-events:none; display:block;}
 
   .promo-banner-slot{
     aspect-ratio:1/1; border-radius:var(--radius-lg); border:1px dashed var(--ink-mute); background:var(--bg-alt);
@@ -358,7 +362,7 @@
     <p class="hero-sub">Escolha a ocasião, encontre a combinação e monte seu look em poucos minutos.</p>
 
     <div class="rating-chip">
-      <span class="stars">★★★★★</span> 4,9 · Homens vestindo com intenção
+      <span class="stars">★★★★★</span> <span class="rating-number">4,9</span>
     </div>
 
     <div class="purchase-options" id="purchase-options">
@@ -627,9 +631,10 @@
 
   <!-- VÍDEO ANTES DO CARROSSEL DE DETALHES -->
   <section style="padding-bottom:8px;">
-    <div class="video-hero">
-      <span class="placeholder-tag">Vídeo de exemplo</span>
-      <div class="play-btn"><i class="ti ti-player-play-filled"></i></div>
+    <div class="ambient-video">
+      <video autoplay muted loop playsinline disablepictureinpicture controlsList="nodownload noplaybackrate nofullscreen">
+        <source src="videos/detalhe-produto.mp4" type="video/mp4">
+      </video>
     </div>
   </section>
 
