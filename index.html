@@ -255,14 +255,15 @@
 
   /* ---- Before/after slider ---- */
   .ba-wrap{padding:0 20px;}
-  .ba-slider{position:relative; aspect-ratio:3/4; border-radius:var(--radius-lg); overflow:hidden; user-select:none; border:1px dashed var(--ink-mute);}
-  .ba-layer{position:absolute; inset:0; display:flex; align-items:flex-end; padding:14px;}
-  .ba-after{background:linear-gradient(160deg,#3A4A2C,#1A1815);}
-  .ba-before{background:linear-gradient(160deg,#D8C9A6,#C4B48C);}
+  .ba-slider{position:relative; aspect-ratio:3/4; border-radius:var(--radius-lg); overflow:hidden; user-select:none;}
+  .ba-layer{position:absolute; inset:0; display:flex; align-items:flex-end; padding:14px; background-size:cover; background-position:top center;}
+  .ba-after{background-image:url('images/transform-depois.jpg');}
+  .ba-before{background-image:url('images/transform-antes.jpg');}
   .ba-clip{position:absolute; inset:0; width:50%; overflow:hidden;}
   .ba-clip .ba-layer{width:200%;}
-  .ba-tag{color:#fff; font-family:var(--mono); font-size:10.5px; background:rgba(0,0,0,0.45); padding:4px 9px; border-radius:4px;}
-  .ba-before .ba-tag{color:var(--ink);}
+  .ba-tag{display:flex; flex-direction:column; gap:2px; color:#fff; background:rgba(0,0,0,0.5); padding:6px 10px; border-radius:6px;}
+  .ba-tag .ba-tag-label{font-family:var(--mono); font-size:10.5px;}
+  .ba-tag .ba-tag-date{font-family:var(--sans); font-size:10px; opacity:0.8;}
   .ba-handle{position:absolute; top:0; bottom:0; left:50%; width:0; z-index:3; pointer-events:none;}
   .ba-handle-line{position:absolute; top:0; bottom:0; left:-1px; width:2px; background:#fff;}
   .ba-handle-grip{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:38px; height:38px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:15px; box-shadow:0 3px 10px rgba(0,0,0,0.25);}
@@ -558,12 +559,11 @@
     <p class="section-title">Do genérico à presença.</p>
     <div class="ba-wrap">
       <div class="ba-slider" id="ba-slider">
-        <div class="ba-layer ba-after"><span class="ba-tag">Depois: com intenção</span></div>
-        <div class="ba-clip" id="ba-clip"><div class="ba-layer ba-before"><span class="ba-tag">Antes: qualquer coisa</span></div></div>
+        <div class="ba-layer ba-after"><span class="ba-tag"><span class="ba-tag-label">Depois: com intenção</span><span class="ba-tag-date">20 de agosto de 2026</span></span></div>
+        <div class="ba-clip" id="ba-clip"><div class="ba-layer ba-before"><span class="ba-tag"><span class="ba-tag-label">Antes: qualquer coisa</span><span class="ba-tag-date">14 de março de 2026</span></span></div></div>
         <div class="ba-handle" id="ba-handle"><div class="ba-handle-line"></div><div class="ba-handle-grip"><i class="ti ti-arrows-horizontal"></i></div></div>
         <input type="range" class="ba-range" id="ba-range" min="0" max="100" value="50">
       </div>
-      <p style="text-align:center; margin-top:8px;"><span class="placeholder-tag">Fotos de exemplo — trocar por antes/depois reais</span></p>
     </div>
   </section>
 
