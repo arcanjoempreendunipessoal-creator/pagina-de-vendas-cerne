@@ -164,6 +164,21 @@
   .sticky-cta-bar .sc-price span{font-size:10.5px; color:var(--ink-mute);}
   .sticky-cta-bar .cta-btn{width:auto; padding:12px 20px; font-size:11.5px; white-space:nowrap; margin:0;}
 
+  /* ---- Modal de pol\u00edticas (Departamentos) ---- */
+  .policy-modal-backdrop{position:fixed; inset:0; background:rgba(26,24,21,0.72); display:none; align-items:flex-end; justify-content:center; z-index:95;}
+  .policy-modal-backdrop.open{display:flex;}
+  .policy-modal{background:var(--bg-card); width:100%; max-width:480px; height:92vh; border-radius:20px 20px 0 0; display:flex; flex-direction:column; overflow:hidden;}
+  .policy-modal-header{display:flex; justify-content:space-between; align-items:center; padding:18px 20px; border-bottom:1px solid var(--line); flex-shrink:0;}
+  .policy-modal-header h2{font-family:var(--serif); font-size:18px; font-weight:500;}
+  .policy-modal-close{width:34px; height:34px; border-radius:50%; background:var(--bg-alt); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; color:var(--ink);}
+  .policy-modal-body{padding:20px; overflow-y:auto; flex:1;}
+  .policy-modal-body h3{font-family:var(--serif); font-size:14px; font-weight:600; margin:18px 0 8px;}
+  .policy-modal-body h3:first-child{margin-top:0;}
+  .policy-modal-body p{font-size:13px; color:var(--ink-soft); line-height:1.65; margin-bottom:10px;}
+  .policy-modal-body ul{margin:0 0 10px 18px;}
+  .policy-modal-body li{font-size:13px; color:var(--ink-soft); line-height:1.65; margin-bottom:5px;}
+  .policy-modal-body .policy-note{font-size:11px; color:var(--ink-mute); font-style:italic; margin-top:20px; padding-top:14px; border-top:1px solid var(--line);}
+
   /* ---- Sections ---- */
   section{padding:34px 20px;}
   .section-title{font-family:var(--serif); font-size:21px; font-weight:500; text-align:center; margin-bottom:18px;}
@@ -706,11 +721,11 @@
         <i class="ti ti-plus"></i>
       </div>
       <div class="footer-links">
-        <a href="#">Política de Reembolso</a>
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos de Uso</a>
-        <a href="#">Informações de Contato</a>
-        <a href="#">Aviso Legal</a>
+        <a href="#" data-policy="reembolso">Política de Reembolso</a>
+        <a href="#" data-policy="privacidade">Política de Privacidade</a>
+        <a href="#" data-policy="termos">Termos de Uso</a>
+        <a href="#" data-policy="contato">Informações de Contato</a>
+        <a href="#" data-policy="aviso">Aviso Legal</a>
       </div>
     </div>
 
@@ -781,6 +796,16 @@
 <div class="video-lightbox" id="image-lightbox">
   <div class="video-lightbox-close" id="image-lightbox-close"><i class="ti ti-x"></i></div>
   <img id="image-lightbox-img" src="" alt="Foto ampliada do estilo" style="max-width:100%; max-height:88vh; border-radius:8px; object-fit:contain;">
+</div>
+
+<div class="policy-modal-backdrop" id="policy-modal-backdrop">
+  <div class="policy-modal">
+    <div class="policy-modal-header">
+      <h2 id="policy-modal-title">Política</h2>
+      <div class="policy-modal-close" id="policy-modal-close"><i class="ti ti-x"></i></div>
+    </div>
+    <div class="policy-modal-body" id="policy-modal-body"></div>
+  </div>
 </div>
 
 <div class="sticky-cta-bar" id="sticky-cta-bar">
@@ -950,6 +975,111 @@ document.querySelectorAll('[data-footer-toggle]').forEach(head => {
   head.addEventListener('click', () => {
     head.closest('[data-footer-sec]').classList.toggle('open');
   });
+});
+
+// ---------- modal de políticas (Departamentos) ----------
+const POLICIES = {
+  reembolso: {
+    title: 'Política de Reembolso',
+    html: `
+      <p>Sua satisfação é importante pra gente. Por isso, você tem um prazo de <strong>7 (sete) dias corridos</strong> a partir da data da compra pra desistir dela, conforme o Código de Defesa do Consumidor (Art. 49, Lei nº 8.078/1990), que garante o direito de arrependimento em compras feitas fora de estabelecimento físico — como é o caso de compras online.</p>
+      <h3>Como solicitar o reembolso</h3>
+      <p>Dentro do prazo de 7 dias após a compra, entre em contato pelo e-mail <strong>contato@vistacomcerne.com</strong> informando o e-mail usado na compra. Não é necessário justificar o motivo, mas ficamos felizes em ouvir seu feedback.</p>
+      <h3>Prazo de processamento</h3>
+      <p>O reembolso é processado através da mesma plataforma de pagamento utilizada (Hotmart), respeitando os prazos operacionais da instituição financeira ou meio de pagamento usado — normalmente entre 5 e 10 dias úteis.</p>
+      <h3>Após os 7 dias</h3>
+      <p>Após esse período, não garantimos reembolso, exceto em casos excepcionais avaliados individualmente (como problema técnico grave e não resolvido de acesso à plataforma).</p>
+      <h3>Sem cobrança recorrente</h3>
+      <p>Como o pagamento da Cerne é único (sem mensalidade), o reembolso, quando aprovado, é total — não existem cobranças futuras a cancelar.</p>
+      <p class="policy-note">Este é um modelo padrão baseado no Código de Defesa do Consumidor. Recomendamos revisão por um advogado antes da publicação definitiva.</p>
+    `
+  },
+  privacidade: {
+    title: 'Política de Privacidade',
+    html: `
+      <p>A Cerne respeita sua privacidade e está comprometida em proteger seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
+      <h3>Quais dados coletamos</h3>
+      <p>Coletamos as informações que você fornece ao usar o aplicativo: nome, e-mail, dados do seu perfil de estilo (idade, altura, peso, formato de rosto, tom de pele, preferências), e dados de navegação/uso da plataforma.</p>
+      <h3>Como usamos seus dados</h3>
+      <ul>
+        <li>Personalizar suas recomendações de looks e estilo</li>
+        <li>Processar sua compra e liberar seu acesso</li>
+        <li>Melhorar continuamente nossos serviços</li>
+        <li>Comunicar novidades relacionadas ao seu acesso, quando autorizado</li>
+      </ul>
+      <h3>Compartilhamento com terceiros</h3>
+      <p>O processamento de pagamentos é feito pela Hotmart, que possui sua própria política de privacidade. Não vendemos nem compartilhamos seus dados pessoais com terceiros para fins de marketing sem o seu consentimento.</p>
+      <h3>Seus direitos</h3>
+      <p>Você pode, a qualquer momento: confirmar a existência de tratamento dos seus dados, acessá-los, corrigir dados incompletos ou desatualizados, solicitar a exclusão deles, e revogar seu consentimento.</p>
+      <p>Para exercer esses direitos, entre em contato pelo e-mail <strong>contato@vistacomcerne.com</strong>.</p>
+      <p class="policy-note">Este é um modelo padrão baseado na LGPD. Recomendamos revisão por um advogado antes da publicação definitiva.</p>
+    `
+  },
+  termos: {
+    title: 'Termos de Uso',
+    html: `
+      <p>Ao acessar e utilizar a plataforma Cerne, você concorda com os termos descritos abaixo.</p>
+      <h3>Sobre o serviço</h3>
+      <p>A Cerne é uma plataforma digital de identidade e estilo masculino, com looks recomendados, perfil de identidade, consultor de estilo com inteligência artificial e ferramentas relacionadas. O acesso é vitalício, mediante pagamento único, sem cobrança recorrente.</p>
+      <h3>Uso adequado</h3>
+      <ul>
+        <li>Utilizar a plataforma apenas para fins pessoais e lícitos</li>
+        <li>Não compartilhar seu acesso com terceiros não autorizados</li>
+        <li>Não copiar, redistribuir ou explorar comercialmente o conteúdo sem autorização</li>
+      </ul>
+      <h3>Propriedade intelectual</h3>
+      <p>Todo o conteúdo da Cerne (looks, textos, identidade visual, marca, sistema de recomendação) pertence à Cerne ou a seus licenciadores, protegido por leis de direitos autorais e propriedade intelectual.</p>
+      <h3>Limitação de responsabilidade</h3>
+      <p>As recomendações de estilo são sugestões baseadas nas informações fornecidas por você e não constituem garantia de resultado específico. A Cerne não se responsabiliza por decisões de compra de terceiros feitas com base nessas recomendações.</p>
+      <h3>Alterações</h3>
+      <p>Podemos atualizar estes termos periodicamente. Mudanças significativas serão comunicadas pelos canais oficiais da plataforma.</p>
+      <p class="policy-note">Este é um modelo padrão. Recomendamos revisão por um advogado antes da publicação definitiva.</p>
+    `
+  },
+  contato: {
+    title: 'Informações de Contato',
+    html: `
+      <p>Tem dúvidas, precisa de suporte, ou quer falar sobre sua compra? Estamos por aqui:</p>
+      <h3>E-mail</h3>
+      <p><strong>contato@vistacomcerne.com</strong></p>
+      <h3>Instagram</h3>
+      <p><strong>@vistacomcerne</strong></p>
+      <h3>Tempo de resposta</h3>
+      <p>Respondemos, em média, em até 2 dias úteis.</p>
+    `
+  },
+  aviso: {
+    title: 'Aviso Legal',
+    html: `
+      <p>As informações e recomendações fornecidas pela Cerne têm caráter informativo e de estilo pessoal, não configurando aconselhamento profissional de moda, saúde ou qualquer outra natureza técnica regulamentada.</p>
+      <p>Resultados individuais podem variar de acordo com fatores pessoais e não são garantidos.</p>
+      <p>"Cerne" e sua identidade visual são marcas do respectivo titular. Todo o conteúdo (textos, imagens, ilustrações, sistema de looks) é protegido por direitos autorais e não pode ser reproduzido sem autorização prévia.</p>
+      <p>Este site pode conter links para plataformas de terceiros (como a Hotmart, responsável pelo processamento de pagamentos), sobre as quais não temos controle e cujas políticas próprias se aplicam.</p>
+      <p class="policy-note">Este é um modelo padrão. Recomendamos revisão por um advogado antes da publicação definitiva.</p>
+    `
+  }
+};
+
+function openPolicyModal(key){
+  const policy = POLICIES[key];
+  if (!policy) return;
+  document.getElementById('policy-modal-title').textContent = policy.title;
+  document.getElementById('policy-modal-body').innerHTML = policy.html;
+  document.getElementById('policy-modal-backdrop').classList.add('open');
+  document.getElementById('policy-modal-body').scrollTop = 0;
+}
+function closePolicyModal(){
+  document.getElementById('policy-modal-backdrop').classList.remove('open');
+}
+document.querySelectorAll('[data-policy]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    openPolicyModal(link.dataset.policy);
+  });
+});
+document.getElementById('policy-modal-close').addEventListener('click', closePolicyModal);
+document.getElementById('policy-modal-backdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'policy-modal-backdrop') closePolicyModal();
 });
 
 // ---------- lightbox de vídeo em tela cheia ----------
