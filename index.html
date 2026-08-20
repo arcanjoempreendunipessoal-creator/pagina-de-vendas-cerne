@@ -255,12 +255,11 @@
 
   /* ---- Before/after slider ---- */
   .ba-wrap{padding:0 20px;}
-  .ba-slider{position:relative; aspect-ratio:3/4; border-radius:var(--radius-lg); overflow:hidden; user-select:none;}
+  .ba-slider{position:relative; aspect-ratio:941/1672; border-radius:var(--radius-lg); overflow:hidden; user-select:none;}
   .ba-layer{position:absolute; inset:0; display:flex; align-items:flex-end; padding:14px; background-size:cover; background-position:top center;}
   .ba-after{background-image:url('images/transform-depois.jpg');}
   .ba-before{background-image:url('images/transform-antes.jpg');}
-  .ba-clip{position:absolute; inset:0; width:50%; overflow:hidden;}
-  .ba-clip .ba-layer{width:200%;}
+  .ba-before{position:absolute; inset:0; z-index:2;}
   .ba-tag{display:flex; flex-direction:column; gap:2px; color:#fff; background:rgba(0,0,0,0.5); padding:6px 10px; border-radius:6px;}
   .ba-tag .ba-tag-label{font-family:var(--mono); font-size:10.5px;}
   .ba-tag .ba-tag-date{font-family:var(--sans); font-size:10px; opacity:0.8;}
@@ -560,7 +559,7 @@
     <div class="ba-wrap">
       <div class="ba-slider" id="ba-slider">
         <div class="ba-layer ba-after"><span class="ba-tag"><span class="ba-tag-label">Depois: com intenção</span><span class="ba-tag-date">20 de agosto de 2026</span></span></div>
-        <div class="ba-clip" id="ba-clip"><div class="ba-layer ba-before"><span class="ba-tag"><span class="ba-tag-label">Antes: qualquer coisa</span><span class="ba-tag-date">14 de março de 2026</span></span></div></div>
+        <div class="ba-layer ba-before" id="ba-before-layer"><span class="ba-tag"><span class="ba-tag-label">Antes: qualquer coisa</span><span class="ba-tag-date">14 de março de 2026</span></span></div>
         <div class="ba-handle" id="ba-handle"><div class="ba-handle-line"></div><div class="ba-handle-grip"><i class="ti ti-arrows-horizontal"></i></div></div>
         <input type="range" class="ba-range" id="ba-range" min="0" max="100" value="50">
       </div>
@@ -859,11 +858,11 @@ document.querySelectorAll('.community-tab').forEach(tab => {
 });
 
 // ---------- slider antes/depois ----------
-const baClip = document.getElementById('ba-clip');
+const baBeforeLayer = document.getElementById('ba-before-layer');
 const baHandle = document.getElementById('ba-handle');
 const baRange = document.getElementById('ba-range');
 function updateBaSlider(val){
-  baClip.style.width = val + '%';
+  baBeforeLayer.style.clipPath = `inset(0 ${100 - val}% 0 0)`;
   baHandle.style.left = val + '%';
 }
 baRange.addEventListener('input', (e) => updateBaSlider(e.target.value));
