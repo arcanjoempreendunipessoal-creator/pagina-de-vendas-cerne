@@ -620,6 +620,62 @@
     </div>
   </section>
 
+  <!-- PERGUNTAS FREQUENTES -->
+  <section id="faq" style="padding-top:8px;">
+    <p class="section-title">Perguntas frequentes</p>
+    <div class="accordion" id="faq-accordion">
+      <div class="accordion-item" data-item="faq1">
+        <div class="accordion-head" data-toggle>
+          <div class="ah-left"><b>Não entendo nada de moda. Vai funcionar pra mim?</b></div>
+          <i class="ti ti-chevron-down chev"></i>
+        </div>
+        <div class="accordion-body">
+          <p class="desc-text">Vai — a Cerne foi feita justamente pra quem não quer estudar moda. Você não escolhe cor, tecido ou tendência: só diz pra onde vai e qual estilo combina com você, e o app monta o look completo. Você aplica, não aprende teoria.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-item="faq2">
+        <div class="accordion-head" data-toggle>
+          <div class="ah-left"><b>E se os looks não combinarem com o que eu já tenho, ou forem caros?</b></div>
+          <i class="ti ti-chevron-down chev"></i>
+        </div>
+        <div class="accordion-body">
+          <p class="desc-text">Cada look pode ser adaptado ao que você já tem no guarda-roupa. E quando faltar alguma peça, a Lista de Compras mostra só o que realmente vale a pena comprar — priorizado pelo que mais completa combinações, não pelo mais caro.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-item="faq3">
+        <div class="accordion-head" data-toggle>
+          <div class="ah-left"><b>Não vou baixar e esquecer, tipo os outros apps que já tenho?</b></div>
+          <i class="ti ti-chevron-down chev"></i>
+        </div>
+        <div class="accordion-body">
+          <p class="desc-text">Diferente de app de treino ou dieta, a Cerne resolve um problema que aparece toda vez que você sai de casa — trabalho, encontro, evento. Você não precisa criar hábito novo: só abre quando já ia se perguntar "o que eu visto hoje".</p>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-item="faq4">
+        <div class="accordion-head" data-toggle>
+          <div class="ah-left"><b>É pagamento único mesmo? Não vem cobrança escondida depois?</b></div>
+          <i class="ti ti-chevron-down chev"></i>
+        </div>
+        <div class="accordion-body">
+          <p class="desc-text">Sim, pagamento único, sem pegadinha. Você paga uma vez e o acesso é seu pra sempre — sem mensalidade, sem renovação automática, sem cobrança escondida no cartão.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-item="faq5">
+        <div class="accordion-head" data-toggle>
+          <div class="ah-left"><b>Funciona pro meu tipo de corpo, idade e minha realidade? Não sou "fashionista".</b></div>
+          <i class="ti ti-chevron-down chev"></i>
+        </div>
+        <div class="accordion-body">
+          <p class="desc-text">A Cerne não foi feita pra fashionista — foi feita pro contrário: pro homem que só quer parecer bem-cuidado sem se importar com moda. Os looks são adaptados ao seu tipo físico, idade e estilo de vida no seu Perfil de Identidade, não são genéricos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA FINAL -->
   <section style="padding-bottom:8px;">
     <img src="images/promo-banner-calendario.jpg" alt="Calendário Cerne — o look certo para cada data do ano. Looks prontos para Natal, Réveillon, Carnaval e Festa Junina." class="promo-banner-img" style="margin-bottom:16px;">
@@ -667,7 +723,7 @@
         <a href="#">Início</a>
         <a href="#">Sobre a Cerne</a>
         <a href="#">Comunidade</a>
-        <a href="#">Perguntas Frequentes</a>
+        <a href="#faq">Perguntas Frequentes</a>
         <a href="#">Contato</a>
         <a href="#">Entrar</a>
       </div>
@@ -838,8 +894,9 @@ document.getElementById('ver-mais-story').addEventListener('click', function(){
 document.querySelectorAll('.accordion-head').forEach(head => {
   head.addEventListener('click', () => {
     const item = head.closest('.accordion-item');
+    const group = head.closest('.accordion');
     const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+    group.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
     if (!wasOpen) item.classList.add('open');
   });
 });
