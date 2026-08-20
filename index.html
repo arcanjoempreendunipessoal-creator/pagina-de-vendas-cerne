@@ -248,9 +248,9 @@
   .testi-grid.dragging{cursor:grabbing; scroll-behavior:auto;}
   .testi-grid::-webkit-scrollbar{display:none;}
   .testi-item{flex-shrink:0; width:150px;}
-  .testi-photo{aspect-ratio:1; border-radius:var(--radius-lg); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#E7DCC4,#D8C9A6); margin-bottom:10px;}
-  .testi-photo .placeholder-tag{position:absolute; top:6px; left:6px; font-size:8px; padding:2px 5px;}
+  .testi-photo{aspect-ratio:1; border-radius:var(--radius-lg); position:relative; overflow:hidden; background-size:cover; background-position:top center; margin-bottom:10px;}
   .testi-item .tq{font-size:12px; font-style:italic; color:var(--ink-soft); line-height:1.45; margin-bottom:6px;}
+  .testi-item .tq-pending{color:var(--ink-mute); font-style:normal; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.3px;}
   .testi-item .tn{font-size:11px; color:var(--ink-mute);}
 
   /* ---- Before/after slider ---- */
@@ -520,24 +520,24 @@
     <p class="section-title">Eles pararam de vestir qualquer coisa.</p>
     <div class="testi-grid">
       <div class="testi-item">
-        <div class="testi-photo"><span class="placeholder-tag">Exemplo</span><div class="play-btn"></div></div>
-        <p class="tq">"Melhor decisão. Finalmente parei de errar no look."</p>
-        <p class="tn">— Cliente exemplo</p>
+        <div class="testi-photo" style="background-image:url('images/testi-lucas.jpg');"></div>
+        <p class="tq tq-pending">Depoimento em breve</p>
+        <p class="tn">— Lucas M. · Belo Horizonte, MG</p>
       </div>
       <div class="testi-item">
-        <div class="testi-photo" style="background:linear-gradient(160deg,#EFE7D6,#DFD3B8);"><span class="placeholder-tag">Exemplo</span><div class="play-btn"></div></div>
-        <p class="tq">"Agora me visto com intenção todos os dias."</p>
-        <p class="tn">— Cliente exemplo</p>
+        <div class="testi-photo" style="background-image:url('images/testi-caio.jpg');"></div>
+        <p class="tq tq-pending">Depoimento em breve</p>
+        <p class="tn">— Caio O. · Salvador, BA</p>
       </div>
       <div class="testi-item">
-        <div class="testi-photo"><span class="placeholder-tag">Exemplo</span><div class="play-btn"></div></div>
-        <p class="tq">"Prático, direto e mudou meu visual."</p>
-        <p class="tn">— Cliente exemplo</p>
+        <div class="testi-photo" style="background-image:url('images/testi-rafael.jpg');"></div>
+        <p class="tq tq-pending">Depoimento em breve</p>
+        <p class="tn">— Rafael M. · Curitiba, PR</p>
       </div>
       <div class="testi-item">
-        <div class="testi-photo" style="background:linear-gradient(160deg,#EFE7D6,#DFD3B8);"><span class="placeholder-tag">Exemplo</span><div class="play-btn"></div></div>
-        <p class="tq">"Me sinto mais seguro e confiante."</p>
-        <p class="tn">— Cliente exemplo</p>
+        <div class="testi-photo" style="background-image:url('images/testi-bruno.jpg');"></div>
+        <p class="tq tq-pending">Depoimento em breve</p>
+        <p class="tn">— Bruno S. · Goiânia, GO</p>
       </div>
     </div>
   </section>
