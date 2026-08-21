@@ -18,6 +18,7 @@
     --serif:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
     --radius:8px; --radius-lg:14px;
   }
+  html{scroll-behavior:smooth;}
   *{box-sizing:border-box; margin:0; padding:0;}
   body{background:var(--bg); font-family:var(--sans); color:var(--ink); -webkit-font-smoothing:antialiased;}
   .wrap{max-width:480px; margin:0 auto; background:var(--bg); overflow-x:hidden;}
@@ -295,13 +296,15 @@
   /* ---- Na prática ---- */
   .pratica-grid{display:flex; flex-direction:column; gap:18px; margin-bottom:22px;}
   .pratica-text p{font-size:13.5px; color:var(--ink-soft); line-height:1.6; margin-bottom:12px;}
-  .pratica-video{aspect-ratio:16/11; border-radius:var(--radius-lg); border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#221F19,#1A1815); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;}
-  .pratica-video .placeholder-tag{position:absolute; top:10px; left:10px;}
-  .pratica-video .duration{position:absolute; bottom:10px; right:10px; color:#fff; font-family:var(--mono); font-size:10px; background:rgba(0,0,0,0.5); padding:3px 7px; border-radius:4px;}
-  .steps4{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-  .step4-card{background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:14px 12px;}
-  .step4-num{width:22px; height:22px; border-radius:50%; background:var(--accent); color:#fff; font-family:var(--mono); font-size:11px; display:flex; align-items:center; justify-content:center; margin-bottom:10px;}
-  .step4-card b{font-family:var(--serif); font-size:13px; font-weight:500; display:block; line-height:1.3;}
+  .pratica-image-slot{aspect-ratio:16/11; border-radius:var(--radius-lg); border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#EFE7D6,#DFD3B8); position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; text-align:center; padding:20px;}
+  .pratica-image-slot .placeholder-tag{position:absolute; top:10px; left:10px;}
+  .pratica-image-slot img{width:100%; height:100%; object-fit:cover; display:block;}
+  .steps4{display:flex; flex-direction:column; gap:12px;}
+  .step4-card{display:flex; gap:14px; align-items:flex-start; background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:16px;}
+  .step4-num{flex-shrink:0; width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff; font-family:var(--mono); font-size:12px; display:flex; align-items:center; justify-content:center;}
+  .step4-eyebrow{font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.5px; color:var(--ink-mute); margin-bottom:3px;}
+  .step4-title{font-family:var(--serif); font-size:15px; font-weight:600; margin-bottom:5px; line-height:1.3;}
+  .step4-desc{font-size:12.5px; color:var(--ink-soft); line-height:1.55;}
 
   /* ---- "É pra você / Não é pra você" ---- */
   .qualifier-card{border-radius:var(--radius-lg); padding:22px 20px; margin-bottom:14px;}
@@ -339,7 +342,7 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="top">
 
   <div class="ribbon">O fim do homem genérico</div>
 
@@ -352,7 +355,7 @@
       <span class="logo-wordmark">cerne</span>
     </div>
     <div class="header-right">
-      <span>Entrar</span>
+      <a href="https://vistacomcerne.com.br/plataforma/" style="color:inherit; text-decoration:none;">Entrar</a>
       <i class="ti ti-menu-2"></i>
     </div>
   </header>
@@ -514,7 +517,7 @@
   </section>
 
   <!-- COMPARTILHE O SEU LOOK -->
-  <section style="padding-top:8px;">
+  <section id="compartilhe" style="padding-top:8px;">
     <p class="section-title" style="text-align:left;">Compartilhe o seu look</p>
     <p class="share-note">Essa é uma parte da nossa comunidade! Quer aparecer na nossa galeria? É só marcar <b>@vistacomcerne</b> nas suas fotos do Instagram e ela pode ser escolhida para aparecer aqui.</p>
     <div class="verified-badge"><i class="ti ti-circle-check-filled"></i> Fotos reais de clientes da Cerne</div>
@@ -612,26 +615,52 @@
   </section>
 
   <!-- O QUE É A CERNE NA PRÁTICA -->
-  <section>
+  <section id="pratica">
     <div class="pratica-grid">
       <div class="pratica-text">
         <p class="section-title" style="text-align:left;">O que é a Cerne, na prática?</p>
         <p>Um aplicativo com mais de 1.000 combinações de roupas para diferentes estilos, climas e ocasiões.</p>
         <p>Vai trabalhar? Tem um encontro? Uma viagem? Uma reunião importante? Abra a Cerne e encontre o look.</p>
       </div>
-      <div class="pratica-video">
-        <span class="placeholder-tag">Vídeo de exemplo</span>
-        <div class="play-btn"><i class="ti ti-player-play-filled"></i></div>
-        <div class="duration">00:45</div>
+      <div class="pratica-image-slot" style="padding:0; border:none;">
+        <img src="images/pratica-app.jpg" alt="Telas do aplicativo Cerne: escolha do estilo, montagem do avatar, ocasião, looks sugeridos e detalhes de cada peça." loading="lazy" width="800" height="550">
       </div>
     </div>
 
     <p style="font-family:var(--serif); font-size:16px; font-weight:500; text-align:center; margin-bottom:16px;">Como funciona em 4 passos simples</p>
     <div class="steps4">
-      <div class="step4-card"><div class="step4-num">1</div><b>Diga para onde você vai</b></div>
-      <div class="step4-card"><div class="step4-num">2</div><b>Escolha seu estilo</b></div>
-      <div class="step4-card"><div class="step4-num">3</div><b>Veja looks completos</b></div>
-      <div class="step4-card"><div class="step4-num">4</div><b>Monte com o que você já tem</b></div>
+      <div class="step4-card">
+        <div class="step4-num">1</div>
+        <div>
+          <p class="step4-eyebrow">Crie sua identidade</p>
+          <p class="step4-title">Monte seu avatar</p>
+          <p class="step4-desc">Informe suas características para receber referências mais próximas de você.</p>
+        </div>
+      </div>
+      <div class="step4-card">
+        <div class="step4-num">2</div>
+        <div>
+          <p class="step4-eyebrow">Escolha seu estilo</p>
+          <p class="step4-title">Diga como quer se apresentar</p>
+          <p class="step4-desc">Clássico, esportivo, streetwear, sofisticado, old money ou autêntico.</p>
+        </div>
+      </div>
+      <div class="step4-card">
+        <div class="step4-num">3</div>
+        <div>
+          <p class="step4-eyebrow">Informe a ocasião</p>
+          <p class="step4-title">Diga para onde você vai</p>
+          <p class="step4-desc">Trabalho, encontro, evento, viagem, treino, dia a dia ou uma ocasião especial.</p>
+        </div>
+      </div>
+      <div class="step4-card">
+        <div class="step4-num">4</div>
+        <div>
+          <p class="step4-eyebrow">Receba os looks</p>
+          <p class="step4-title">Veja combinações completas</p>
+          <p class="step4-desc">A Cerne mostra as peças juntas e como o visual fica no corpo.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -735,12 +764,12 @@
         <i class="ti ti-plus"></i>
       </div>
       <div class="footer-links">
-        <a href="#">Início</a>
-        <a href="#">Sobre a Cerne</a>
-        <a href="#">Comunidade</a>
+        <a href="#top">Início</a>
+        <a href="#pratica">Sobre a Cerne</a>
+        <a href="#compartilhe">Comunidade</a>
         <a href="#faq">Perguntas Frequentes</a>
-        <a href="#">Contato</a>
-        <a href="#">Entrar</a>
+        <a href="#contato-fim">Contato</a>
+        <a href="#" id="entrar-link" onclick="return false;">Entrar</a>
       </div>
     </div>
 
@@ -774,7 +803,7 @@
       </svg>
       <span class="logo-wordmark">cerne</span>
     </div>
-    <p class="tagline">Não vestimos igual. Vestimos com intenção.<br>© 2026 Cerne. Todos os direitos reservados.</p>
+    <p class="tagline" id="contato-fim">Não vestimos igual. Vestimos com intenção.<br>© 2026 Cerne. Todos os direitos reservados.</p>
   </footer>
 
 </div>
@@ -991,7 +1020,6 @@ const POLICIES = {
       <p>Após esse período, não garantimos reembolso, exceto em casos excepcionais avaliados individualmente (como problema técnico grave e não resolvido de acesso à plataforma).</p>
       <h3>Sem cobrança recorrente</h3>
       <p>Como o pagamento da Cerne é único (sem mensalidade), o reembolso, quando aprovado, é total — não existem cobranças futuras a cancelar.</p>
-      <p class="policy-note">Este é um modelo padrão baseado no Código de Defesa do Consumidor. Recomendamos revisão por um advogado antes da publicação definitiva.</p>
     `
   },
   privacidade: {
@@ -1012,7 +1040,6 @@ const POLICIES = {
       <h3>Seus direitos</h3>
       <p>Você pode, a qualquer momento: confirmar a existência de tratamento dos seus dados, acessá-los, corrigir dados incompletos ou desatualizados, solicitar a exclusão deles, e revogar seu consentimento.</p>
       <p>Para exercer esses direitos, entre em contato pelo e-mail <strong>contato@vistacomcerne.com</strong>.</p>
-      <p class="policy-note">Este é um modelo padrão baseado na LGPD. Recomendamos revisão por um advogado antes da publicação definitiva.</p>
     `
   },
   termos: {
@@ -1033,7 +1060,6 @@ const POLICIES = {
       <p>As recomendações de estilo são sugestões baseadas nas informações fornecidas por você e não constituem garantia de resultado específico. A Cerne não se responsabiliza por decisões de compra de terceiros feitas com base nessas recomendações.</p>
       <h3>Alterações</h3>
       <p>Podemos atualizar estes termos periodicamente. Mudanças significativas serão comunicadas pelos canais oficiais da plataforma.</p>
-      <p class="policy-note">Este é um modelo padrão. Recomendamos revisão por um advogado antes da publicação definitiva.</p>
     `
   },
   contato: {
@@ -1044,9 +1070,7 @@ const POLICIES = {
       <p><strong>contato@vistacomcerne.com</strong></p>
       <h3>Instagram</h3>
       <p><strong>@vistacomcerne</strong></p>
-      <h3>Tempo de resposta</h3>
-      <p>Respondemos, em média, em até 2 dias úteis.</p>
-    `
+          `
   },
   aviso: {
     title: 'Aviso Legal',
@@ -1055,7 +1079,6 @@ const POLICIES = {
       <p>Resultados individuais podem variar de acordo com fatores pessoais e não são garantidos.</p>
       <p>"Cerne" e sua identidade visual são marcas do respectivo titular. Todo o conteúdo (textos, imagens, ilustrações, sistema de looks) é protegido por direitos autorais e não pode ser reproduzido sem autorização prévia.</p>
       <p>Este site pode conter links para plataformas de terceiros (como a Hotmart, responsável pelo processamento de pagamentos), sobre as quais não temos controle e cujas políticas próprias se aplicam.</p>
-      <p class="policy-note">Este é um modelo padrão. Recomendamos revisão por um advogado antes da publicação definitiva.</p>
     `
   }
 };
