@@ -3,6 +3,6 @@
     { "source": "/plataforma", "destination": "/plataforma/", "permanent": false }
   ],
   "rewrites": [
-    { "source": "/plataforma/:path*", "destination": "https://cerne-app-tau.vercel.app/:path*" }
+    { "source": "/plataforma/(.*)", "destination": "https://cerne-app-tau.vercel.app/$1" }
   ]
 }
