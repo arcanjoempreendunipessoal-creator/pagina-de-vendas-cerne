@@ -355,7 +355,7 @@
       <span class="logo-wordmark">cerne</span>
     </div>
     <div class="header-right">
-      <a href="https://vistacomcerne.com.br/plataforma/" style="color:inherit; text-decoration:none;">Entrar</a>
+      <a href="#" data-policy="acesso" style="color:inherit; text-decoration:none;">Já comprei</a>
       <i class="ti ti-menu-2"></i>
     </div>
   </header>
@@ -622,8 +622,9 @@
         <p>Um aplicativo com mais de 1.000 combinações de roupas para diferentes estilos, climas e ocasiões.</p>
         <p>Vai trabalhar? Tem um encontro? Uma viagem? Uma reunião importante? Abra a Cerne e encontre o look.</p>
       </div>
-      <div class="pratica-image-slot" style="padding:0; border:none;">
-        <img src="images/pratica-app.jpg" alt="Telas do aplicativo Cerne: escolha do estilo, montagem do avatar, ocasião, looks sugeridos e detalhes de cada peça." loading="lazy" width="800" height="550">
+      <div class="pratica-image-slot">
+        <span class="placeholder-tag">Imagem pendente</span>
+        <p style="font-size:12px; color:var(--ink-mute); max-width:220px;">Espaço reservado — troque por uma imagem real assim que puder me enviar</p>
       </div>
     </div>
 
@@ -769,7 +770,7 @@
         <a href="#compartilhe">Comunidade</a>
         <a href="#faq">Perguntas Frequentes</a>
         <a href="#contato-fim">Contato</a>
-        <a href="#" id="entrar-link" onclick="return false;">Entrar</a>
+        <a href="#" data-policy="acesso">Já comprei</a>
       </div>
     </div>
 
@@ -1008,6 +1009,23 @@ document.querySelectorAll('[data-footer-toggle]').forEach(head => {
 
 // ---------- modal de políticas (Departamentos) ----------
 const POLICIES = {
+  acesso: {
+    title: 'Já comprei, quero acessar',
+    html: `
+      <p>O acesso à Plataforma Cerne é liberado automaticamente assim que a Hotmart aprova o pagamento da sua compra.</p>
+      <h3>Onde encontrar o link de acesso</h3>
+      <p>Você recebe o link direto da plataforma <strong>no e-mail cadastrado na hora da compra</strong>, junto com a confirmação da Hotmart. Geralmente chega em poucos minutos após o pagamento ser aprovado.</p>
+      <h3>Também dá pra acessar pelo app da Hotmart</h3>
+      <p>Se você tem o aplicativo da Hotmart instalado no celular, é só abrir, ir na aba de <strong>compras</strong> e tocar no produto "Plataforma Cerne" — o link de acesso aparece direto por lá também, sem precisar procurar no e-mail.</p>
+      <h3>Não encontrou de nenhuma das duas formas?</h3>
+      <ul>
+        <li>Confere a caixa de spam ou promoções do seu e-mail</li>
+        <li>Confirma se o pagamento já foi aprovado (Pix e boleto podem levar até 1-2 dias úteis)</li>
+      </ul>
+      <h3>Ainda não comprou?</h3>
+      <p>É só voltar lá em cima e clicar em "Comprar agora" — depois de aprovado, o acesso chega certinho no seu e-mail e no app da Hotmart.</p>
+    `
+  },
   reembolso: {
     title: 'Política de Reembolso',
     html: `
