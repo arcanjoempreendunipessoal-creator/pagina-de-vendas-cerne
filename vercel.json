@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/plataforma", "destination": "https://cerne-app-tau.vercel.app" },
+    { "source": "/plataforma/:path*", "destination": "https://cerne-app-tau.vercel.app/:path*" }
+  ]
+}
