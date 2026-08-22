@@ -18,6 +18,7 @@ const API_VERSION = 'v21.0';
 const EVENTOS_PERMITIDOS = new Set([
   'PageView',
   'ViewContent',
+  'AddToCart',
   'InitiateCheckout',
   'Lead',
   'Contact',
