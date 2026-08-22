@@ -25,9 +25,8 @@ const EVENTOS_PERMITIDOS = new Set([
 
 // Domínios autorizados a chamar esta rota
 const ORIGENS_PERMITIDAS = [
-  'https://www.vistacomcerne.com.br',
   'https://vistacomcerne.com.br',
-  'https://pagina-de-vendas-cerne.vercel.app',
+  'https://www.vistacomcerne.com.br',
 ];
 
 function sha256(valor) {
