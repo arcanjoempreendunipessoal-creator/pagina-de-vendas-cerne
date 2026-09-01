@@ -1127,9 +1127,13 @@ document.getElementById('policy-modal-backdrop').addEventListener('click', (e) =
 function openVideoLightbox(src){
   const lb = document.getElementById('video-lightbox');
   const vid = document.getElementById('video-lightbox-video');
-  if (src) vid.querySelector('source') ? (vid.querySelector('source').src = src) : vid.innerHTML = `<source src="${src}" type="video/mp4">`;
-  if (src) vid.load();
+  if (src){
+    vid.innerHTML = `<source src="${src}" type="video/mp4">`;
+    vid.load();
+  }
+  vid.muted = false;
   lb.classList.add('open');
+  vid.play().catch(() => {});
 }
 function closeVideoLightbox(){
   const lb = document.getElementById('video-lightbox');
@@ -1173,7 +1177,7 @@ bubble.addEventListener('pointermove', (e) => {
   if (!bubbleDragging) return;
   const dx = e.clientX - bubbleStartX;
   const dy = e.clientY - bubbleStartY;
-  if (Math.abs(dx) > 5 || Math.abs(dy) > 5) bubbleMoved = true;
+  if (Math.abs(dx) > 12 || Math.abs(dy) > 12) bubbleMoved = true;
   bubble.style.left = Math.max(4, Math.min(window.innerWidth - 70, bubbleOrigX + dx)) + 'px';
   bubble.style.top = Math.max(4, Math.min(window.innerHeight - 70, bubbleOrigY + dy)) + 'px';
   bubble.style.right = 'auto';
@@ -1244,6 +1248,10 @@ if (carousel){
       </video>
     `;
     carousel.appendChild(item);
+    if (isFirst){
+      item.style.cursor = 'pointer';
+      item.addEventListener('click', () => openVideoLightbox('videos/cerne-ad1-full.mp4'));
+    }
   });
 
   const carouselVideos = Array.from(carousel.querySelectorAll('video'));
