@@ -165,7 +165,7 @@
   .sticky-cta-bar .sc-price span{font-size:10.5px; color:var(--ink-mute);}
   .sticky-cta-bar .cta-btn{width:auto; padding:12px 20px; font-size:11.5px; white-space:nowrap; margin:0;}
 
-  /* ---- Modal de políticas (Departamentos) ---- */
+  /* ---- Modal de pol\u00edticas (Departamentos) ---- */
   .policy-modal-backdrop{position:fixed; inset:0; background:rgba(26,24,21,0.72); display:none; align-items:flex-end; justify-content:center; z-index:95;}
   .policy-modal-backdrop.open{display:flex;}
   .policy-modal{background:var(--bg-card); width:100%; max-width:480px; height:92vh; border-radius:20px 20px 0 0; display:flex; flex-direction:column; overflow:hidden;}
@@ -340,89 +340,6 @@
   .footer-pay-row{display:flex; flex-wrap:wrap; gap:8px; padding-bottom:22px; border-bottom:1px solid rgba(255,255,255,0.14); margin-bottom:22px;}
   .pay-badge{font-family:var(--mono); font-size:9.5px; font-weight:500; color:var(--ink); background:#F0E9DA; padding:6px 9px; border-radius:4px;}
 </style>
-
-<!-- ============================================================
-     META PIXEL + API DE CONVERSÕES — CERNE
-     Pixel ID: 1934407753926495
-     ============================================================ -->
-<script>
-(function () {
-  /* ---------- Pixel base da Meta ---------- */
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window,document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-
-  fbq('init', '1934407753926495');
-
-  /* ---------- Estado da oferta selecionada ---------- */
-  window.CERNE_PRECOS = { cerne: 159.90, combo: 119.90 };
-  window.CERNE_OPCAO_ATUAL = 'combo';
-
-  /* ---------- Dispara navegador + servidor com o MESMO event_id ---------- */
-  function uuid() {
-    return (window.crypto && crypto.randomUUID)
-      ? crypto.randomUUID()
-      : Date.now() + '-' + Math.random().toString(16).slice(2);
-  }
-
-  window.cerneTrack = function (eventName, customData) {
-    var eventId = eventName.toLowerCase() + '-' + uuid();
-    customData = customData || {};
-
-    if (window.fbq) fbq('track', eventName, customData, { eventID: eventId });
-
-    try {
-      fetch('/api/meta-capi', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        keepalive: true,
-        body: JSON.stringify({
-          event_name: eventName,
-          event_id: eventId,
-          event_source_url: location.href,
-          custom_data: customData
-        })
-      }).catch(function () {});
-    } catch (e) {}
-
-    return eventId;
-  };
-
-  /* ---------- Repassa a origem da campanha para o link da Hotmart ---------- */
-  window.montarLinkHotmart = function (href) {
-    try {
-      var p = new URLSearchParams(location.search);
-      var url = new URL(href, location.origin);
-      if (!/hotmart/.test(url.hostname)) return href;
-
-      var src = p.get('utm_source') || p.get('src') || 'site';
-      var sck = p.get('utm_campaign') || p.get('sck') || '';
-      var content = p.get('utm_content') || '';
-
-      url.searchParams.set('src', src);
-      if (sck || content) {
-        url.searchParams.set('sck', [sck, content].filter(Boolean).join('|'));
-      }
-      return url.toString();
-    } catch (e) {
-      return href;
-    }
-  };
-
-  /* ---------- PageView ---------- */
-  window.cerneTrack('PageView');
-})();
-</script>
-<noscript>
-  <img height="1" width="1" style="display:none"
-       src="https://www.facebook.com/tr?id=1934407753926495&ev=PageView&noscript=1" alt=""/>
-</noscript>
-<!-- ============ FIM META PIXEL ============ -->
 </head>
 <body>
 <div class="wrap" id="top">
@@ -492,7 +409,7 @@
     </div>
 
     <!-- TROCAR href pelo link de checkout real da Hotmart (um link pra cada opção, trocado via JS) -->
-    <a href="#" class="cta-btn btn-checkout" id="main-cta-btn" style="margin-top:14px;">Comprar agora</a>
+    <a href="#" class="cta-btn" id="main-cta-btn" style="margin-top:14px;">Comprar agora</a>
     <p style="text-align:center; font-size:12px; color:var(--ink-mute); margin-top:9px;">ou 12x de R$12,40</p>
     <div class="trust-line">
       <span><i class="ti ti-bolt"></i> Acesso imediato</span>
@@ -807,7 +724,7 @@
   <!-- CTA FINAL -->
   <section style="padding-bottom:8px;">
     <img src="images/promo-banner-calendario.jpg" alt="Calendário Cerne — o look certo para cada data do ano. Looks prontos para Natal, Réveillon, Carnaval e Festa Junina." class="promo-banner-img" style="margin-bottom:16px;">
-    <a href="#" class="cta-btn btn-checkout" id="final-cta-btn" style="margin-bottom:12px;">Quero a Cerne + Calendário de Looks</a>
+    <a href="#" class="cta-btn" id="final-cta-btn" style="margin-bottom:12px;">Quero a Cerne + Calendário de Looks</a>
     <p style="text-align:center; font-size:11.5px; color:var(--ink-mute);">Pagamento único · Acesso vitalício · Sem mensalidade</p>
   </section>
 
@@ -895,7 +812,7 @@
 <!-- Bolinha de vídeo flutuante — arrasta pra mover, toque curto abre em tela cheia -->
 <div class="floating-video-bubble" id="floating-bubble">
   <video autoplay muted loop playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23DFD3B8'/%3E%3C/svg%3E">
-    <!-- <source src="videos/bolha-flutuante.mp4" type="video/mp4"> -->
+    <source src="videos/cerne-ad1-mini.mp4" type="video/mp4">
   </video>
   <div class="circle-play-overlay"><i class="ti ti-player-play-filled"></i></div>
 </div>
@@ -923,7 +840,7 @@
 
 <div class="sticky-cta-bar" id="sticky-cta-bar">
   <div class="sc-price"><b>R$119,90 à vista</b><span>ou 12x de R$12,40</span></div>
-  <a href="#" class="cta-btn btn-checkout" id="sticky-cta-btn">Comprar agora</a>
+  <a href="#" class="cta-btn" id="sticky-cta-btn">Comprar agora</a>
 </div>
 
 <script>
@@ -1136,8 +1053,6 @@ const POLICIES = {
         <li>Melhorar continuamente nossos serviços</li>
         <li>Comunicar novidades relacionadas ao seu acesso, quando autorizado</li>
       </ul>
-      <h3>Cookies e tecnologias de rastreamento</h3>
-      <p>Utilizamos cookies e tecnologias similares, incluindo o Pixel da Meta e a API de Conversões, para medir o desempenho dos nossos anúncios e entender como os visitantes interagem com esta página. Esses dados podem ser compartilhados com a Meta Platforms para fins de mensuração e publicidade. Você pode gerenciar suas preferências de anúncios diretamente nas configurações da sua conta do Facebook ou Instagram.</p>
       <h3>Compartilhamento com terceiros</h3>
       <p>O processamento de pagamentos é feito pela Hotmart, que possui sua própria política de privacidade. Não vendemos nem compartilhamos seus dados pessoais com terceiros para fins de marketing sem o seu consentimento.</p>
       <h3>Seus direitos</h3>
@@ -1209,8 +1124,11 @@ document.getElementById('policy-modal-backdrop').addEventListener('click', (e) =
 });
 
 // ---------- lightbox de vídeo em tela cheia ----------
-function openVideoLightbox(){
+function openVideoLightbox(src){
   const lb = document.getElementById('video-lightbox');
+  const vid = document.getElementById('video-lightbox-video');
+  if (src) vid.querySelector('source') ? (vid.querySelector('source').src = src) : vid.innerHTML = `<source src="${src}" type="video/mp4">`;
+  if (src) vid.load();
   lb.classList.add('open');
 }
 function closeVideoLightbox(){
@@ -1228,13 +1146,14 @@ document.getElementById('video-lightbox').addEventListener('click', (e) => {
 const detailPosters = [STYLE_ICONS['Autêntico'], STYLE_ICONS['Sofisticado'], STYLE_ICONS['Urbano']];
 document.querySelectorAll('.detail-video-circle').forEach((el, i) => {
   const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'>${detailPosters[i % detailPosters.length]}</svg>`);
+  const isFirst = i === 0;
   el.innerHTML = `
     <video autoplay muted loop playsinline poster="data:image/svg+xml,${svg}">
-      <!-- <source src="videos/detalhe-${i+1}.mp4" type="video/mp4"> -->
+      ${isFirst ? '<source src="videos/cerne-ad1-mini.mp4" type="video/mp4">' : `<!-- <source src="videos/detalhe-${i+1}.mp4" type="video/mp4"> -->`}
     </video>
     <div class="circle-play-overlay"><i class="ti ti-player-play-filled" style="font-size:14px;"></i></div>
   `;
-  el.addEventListener('click', () => openVideoLightbox());
+  el.addEventListener('click', () => openVideoLightbox(isFirst ? 'videos/cerne-ad1-full.mp4' : null));
 });
 
 // ---------- bolinha de vídeo flutuante: arrastar ou clicar ----------
@@ -1263,7 +1182,7 @@ bubble.addEventListener('pointermove', (e) => {
 bubble.addEventListener('pointerup', (e) => {
   bubbleDragging = false;
   bubble.releasePointerCapture(e.pointerId);
-  if (!bubbleMoved) openVideoLightbox();
+  if (!bubbleMoved) openVideoLightbox('videos/cerne-ad1-full.mp4');
 });
 
 // ---------- barra fixa de compra: aparece quando o botão do topo sai da tela ----------
@@ -1283,13 +1202,9 @@ const CHECKOUT_LINKS = {
 };
 function applyCheckoutLink(option){
   const url = CHECKOUT_LINKS[option] || CHECKOUT_LINKS.combo;
-  // acrescenta src/sck da campanha ao link, sem perder o bid original
-  const urlFinal = (typeof window.montarLinkHotmart === 'function') ? window.montarLinkHotmart(url) : url;
-  // guarda a opção selecionada para o evento InitiateCheckout usar o valor certo
-  window.CERNE_OPCAO_ATUAL = (option === 'cerne' || option === 'combo') ? option : 'combo';
   ['main-cta-btn', 'sticky-cta-btn', 'final-cta-btn'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.href = urlFinal;
+    if (el) el.href = url;
   });
 }
 applyCheckoutLink('combo'); // opção "combo" já vem selecionada por padrão
@@ -1321,10 +1236,11 @@ if (carousel){
     const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'>${icon}</svg>`);
     const item = document.createElement('div');
     item.className = 'detail-carousel-item';
+    const isFirst = i === 0;
     item.innerHTML = `
-      <span class="placeholder-tag">Vídeo de exemplo</span>
+      ${isFirst ? '' : '<span class="placeholder-tag">Vídeo de exemplo</span>'}
       <video muted playsinline poster="data:image/svg+xml,${svg}">
-        <!-- <source src="videos/detalhe-carrossel-${i+1}.mp4" type="video/mp4"> -->
+        ${isFirst ? '<source src="videos/cerne-ad1-full.mp4" type="video/mp4">' : `<!-- <source src="videos/detalhe-carrossel-${i+1}.mp4" type="video/mp4"> -->`}
       </video>
     `;
     carousel.appendChild(item);
@@ -1352,55 +1268,6 @@ if (carousel){
   });
 }
 
-</script>
-
-<!-- ============================================================
-     META PIXEL — EVENTOS DA PÁGINA (ViewContent / InitiateCheckout)
-     ============================================================ -->
-<script>
-(function () {
-  if (typeof window.cerneTrack !== 'function') return;
-
-  function ofertaAtual() {
-    var opcao = window.CERNE_OPCAO_ATUAL === 'cerne' ? 'cerne' : 'combo';
-    var precos = window.CERNE_PRECOS || { cerne: 119.90, combo: 119.90 };
-    return {
-      content_name: opcao === 'cerne' ? 'Plataforma Cerne' : 'Cerne + Calendário de Looks',
-      content_ids: [opcao === 'cerne' ? 'cerne-plataforma' : 'cerne-combo-calendario'],
-      content_type: 'product',
-      value: precos[opcao],
-      currency: 'BRL'
-    };
-  }
-
-  /* ---------- ViewContent: 25% de scroll OU 15 segundos na página ---------- */
-  var viewContentEnviado = false;
-
-  function dispararViewContent() {
-    if (viewContentEnviado) return;
-    viewContentEnviado = true;
-    window.removeEventListener('scroll', aoRolar);
-    window.cerneTrack('ViewContent', ofertaAtual());
-  }
-
-  function aoRolar() {
-    var altura = document.body.scrollHeight - window.innerHeight;
-    if (altura <= 0) return;
-    if ((window.scrollY / altura) >= 0.25) dispararViewContent();
-  }
-
-  window.addEventListener('scroll', aoRolar, { passive: true });
-  setTimeout(dispararViewContent, 15000);
-
-  /* ---------- InitiateCheckout: clique em qualquer CTA de compra ---------- */
-  document.querySelectorAll('.btn-checkout').forEach(function (el) {
-    el.addEventListener('click', function () {
-      var dados = ofertaAtual();
-      dados.num_items = 1;
-      window.cerneTrack('AddToCart', dados);
-    });
-  });
-})();
 </script>
 </body>
 </html>
