@@ -894,27 +894,45 @@ Object.entries(STYLE_PHOTOS).forEach(([name, photoSrc]) => {
 // ---------- grid "Comunidade" (avatares ilustrados no lugar de fotos reais) ----------
 const styleNames = Object.keys(STYLE_ICONS);
 const HANDLE_POOL = ['@rafa.estilo', '@lucas.vc', '@bruno.certo', '@diego.a', '@gui.santos', '@matheus.a', '@joao_vc', '@felipe.m', '@thiago.r', '@caio_p', '@andre.vc', '@pedro.est', '@vitor.a', '@renan.m', '@yuri.est', '@leo.vc'];
+const REAL_COMMUNITY_POSTS = [
+  { handle: '@rbarrosr_', url: 'https://www.instagram.com/rbarrosr_/', photo: 'images/community-rbarrosr.jpg' }
+];
 
 const IG_ICON_SVG = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>`;
 function buildCommunityPosts(){
   const comGrid = document.getElementById('tab-comunidade');
   HANDLE_POOL.forEach((handle, i) => {
-    const icon = STYLE_ICONS[styleNames[i % styleNames.length]];
+    const real = REAL_COMMUNITY_POSTS[i];
     const div = document.createElement('div');
     div.className = 'community-post';
     if (i >= 8) div.style.display = 'none';
     div.dataset.batch = i >= 8 ? 'more' : 'base';
-    div.innerHTML = `
-      <div class="cp-photo">
-        <span class="placeholder-tag">Ex.</span>
-        <svg viewBox="0 0 80 100">${icon}</svg>
-        <div class="cp-handle-badge">
-          <span class="cp-ig-icon">${IG_ICON_SVG}</span>
-          <span class="handle-text">${handle}</span>
+
+    if (real){
+      div.innerHTML = `
+        <div class="cp-photo" style="border-style:solid; border-color:var(--line);">
+          <img src="${real.photo}" alt="Look de ${real.handle}" style="width:100%; height:100%; object-fit:cover; position:absolute; inset:0;">
+          <a href="${real.url}" target="_blank" rel="noopener" class="cp-handle-badge" style="text-decoration:none; z-index:2; position:absolute;">
+            <span class="cp-ig-icon">${IG_ICON_SVG}</span>
+            <span class="handle-text">${real.handle}</span>
+          </a>
         </div>
-      </div>
-      <div class="cp-verified-badge"><i class="ti ti-circle-check-filled"></i> Cliente Cerne</div>
-    `;
+        <div class="cp-verified-badge"><i class="ti ti-circle-check-filled"></i> Cliente Cerne</div>
+      `;
+    } else {
+      const icon = STYLE_ICONS[styleNames[i % styleNames.length]];
+      div.innerHTML = `
+        <div class="cp-photo">
+          <span class="placeholder-tag">Ex.</span>
+          <svg viewBox="0 0 80 100">${icon}</svg>
+          <div class="cp-handle-badge">
+            <span class="cp-ig-icon">${IG_ICON_SVG}</span>
+            <span class="handle-text">${handle}</span>
+          </div>
+        </div>
+        <div class="cp-verified-badge"><i class="ti ti-circle-check-filled"></i> Cliente Cerne</div>
+      `;
+    }
     comGrid.appendChild(div);
   });
 }
