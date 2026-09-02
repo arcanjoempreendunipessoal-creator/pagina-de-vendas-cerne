@@ -895,7 +895,8 @@ Object.entries(STYLE_PHOTOS).forEach(([name, photoSrc]) => {
 const styleNames = Object.keys(STYLE_ICONS);
 const HANDLE_POOL = ['@rafa.estilo', '@lucas.vc', '@bruno.certo', '@diego.a', '@gui.santos', '@matheus.a', '@joao_vc', '@felipe.m', '@thiago.r', '@caio_p', '@andre.vc', '@pedro.est', '@vitor.a', '@renan.m', '@yuri.est', '@leo.vc'];
 const REAL_COMMUNITY_POSTS = [
-  { handle: '@rbarrosr_', url: 'https://www.instagram.com/rbarrosr_/', photo: 'images/community-rbarrosr.jpg' }
+  { handle: '@rbarrosr_', url: 'https://www.instagram.com/rbarrosr_/', photo: 'images/community-rbarrosr.jpg' },
+  { handle: '@murilofm_', url: 'https://www.instagram.com/murilofm_/', photo: 'images/community-murilofm.jpg' }
 ];
 
 const IG_ICON_SVG = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>`;
@@ -1166,16 +1167,20 @@ document.getElementById('video-lightbox').addEventListener('click', (e) => {
 
 // ---------- "Descubra cada detalhe em vídeo" — círculos fixos ----------
 const detailPosters = [STYLE_ICONS['Autêntico'], STYLE_ICONS['Sofisticado'], STYLE_ICONS['Urbano']];
+const REAL_DETAIL_VIDEOS = [
+  { mini: 'videos/cerne-ad1-mini.mp4', full: 'videos/cerne-ad1-full.mp4' },
+  { mini: 'videos/cerne-clara-mini.mp4', full: 'videos/cerne-clara-full.mp4' }
+];
 document.querySelectorAll('.detail-video-circle').forEach((el, i) => {
   const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'>${detailPosters[i % detailPosters.length]}</svg>`);
-  const isFirst = i === 0;
+  const real = REAL_DETAIL_VIDEOS[i];
   el.innerHTML = `
     <video autoplay muted loop playsinline poster="data:image/svg+xml,${svg}">
-      ${isFirst ? '<source src="videos/cerne-ad1-mini.mp4" type="video/mp4">' : `<!-- <source src="videos/detalhe-${i+1}.mp4" type="video/mp4"> -->`}
+      ${real ? `<source src="${real.mini}" type="video/mp4">` : `<!-- <source src="videos/detalhe-${i+1}.mp4" type="video/mp4"> -->`}
     </video>
     <div class="circle-play-overlay"><i class="ti ti-player-play-filled" style="font-size:14px;"></i></div>
   `;
-  el.addEventListener('click', () => openVideoLightbox(isFirst ? 'videos/cerne-ad1-full.mp4' : null));
+  el.addEventListener('click', () => openVideoLightbox(real ? real.full : null));
 });
 
 // ---------- bolinha de vídeo flutuante: arrastar ou clicar ----------
@@ -1258,17 +1263,17 @@ if (carousel){
     const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'>${icon}</svg>`);
     const item = document.createElement('div');
     item.className = 'detail-carousel-item';
-    const isFirst = i === 0;
+    const real = REAL_DETAIL_VIDEOS[i];
     item.innerHTML = `
-      ${isFirst ? '' : '<span class="placeholder-tag">Vídeo de exemplo</span>'}
+      ${real ? '' : '<span class="placeholder-tag">Vídeo de exemplo</span>'}
       <video muted playsinline poster="data:image/svg+xml,${svg}">
-        ${isFirst ? '<source src="videos/cerne-ad1-full.mp4" type="video/mp4">' : `<!-- <source src="videos/detalhe-carrossel-${i+1}.mp4" type="video/mp4"> -->`}
+        ${real ? `<source src="${real.full}" type="video/mp4">` : `<!-- <source src="videos/detalhe-carrossel-${i+1}.mp4" type="video/mp4"> -->`}
       </video>
     `;
     carousel.appendChild(item);
-    if (isFirst){
+    if (real){
       item.style.cursor = 'pointer';
-      item.addEventListener('click', () => openVideoLightbox('videos/cerne-ad1-full.mp4'));
+      item.addEventListener('click', () => openVideoLightbox(real.full));
     }
   });
 
