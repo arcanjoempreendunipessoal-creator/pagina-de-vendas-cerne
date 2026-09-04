@@ -254,6 +254,9 @@
   .cp-handle-badge span.handle-text{color:#fff; font-size:11px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
   .cp-verified-badge{display:flex; align-items:center; justify-content:center; gap:5px; background:var(--olive-soft); color:var(--olive); font-size:11px; font-weight:500; padding:7px 10px; border-radius:20px; margin-top:8px;}
   .cp-verified-badge i{font-size:13px;}
+  .cp-photo-waiting{flex-direction:column;}
+  .cp-handle-badge-waiting{background:rgba(26,24,21,0.35); padding:5px 12px; justify-content:center;}
+  .cp-handle-badge-waiting .handle-text{opacity:0.75; font-weight:400;}
 
   .story-post{position:relative; aspect-ratio:0.82; border-radius:var(--radius-lg); overflow:hidden; border:1px dashed var(--ink-mute); background:linear-gradient(160deg,#EFE7D6,#DFD3B8); display:flex; align-items:center; justify-content:center;}
   .story-post .story-handle{position:absolute; left:7px; right:7px; bottom:7px; display:flex; align-items:center; gap:6px; background:rgba(26,24,21,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-radius:20px; padding:4px 10px 4px 4px; z-index:2; color:#fff; font-size:11px; font-weight:500;}
@@ -920,17 +923,14 @@ function buildCommunityPosts(){
         <div class="cp-verified-badge"><i class="ti ti-circle-check-filled"></i> Cliente Cerne</div>
       `;
     } else {
-      const icon = STYLE_ICONS[styleNames[i % styleNames.length]];
       div.innerHTML = `
-        <div class="cp-photo">
-          <span class="placeholder-tag">Ex.</span>
-          <svg viewBox="0 0 80 100">${icon}</svg>
-          <div class="cp-handle-badge">
-            <span class="cp-ig-icon">${IG_ICON_SVG}</span>
-            <span class="handle-text">${handle}</span>
+        <div class="cp-photo cp-photo-waiting">
+          <i class="ti ti-camera-plus" style="font-size:26px; color:var(--ink-mute);"></i>
+          <p style="font-size:11px; color:var(--ink-mute); margin-top:8px; text-align:center; padding:0 10px;">Aguardando sua foto</p>
+          <div class="cp-handle-badge cp-handle-badge-waiting">
+            <span class="handle-text">@...</span>
           </div>
         </div>
-        <div class="cp-verified-badge"><i class="ti ti-circle-check-filled"></i> Cliente Cerne</div>
       `;
     }
     comGrid.appendChild(div);
@@ -940,13 +940,13 @@ function buildStoryPosts(){
   const storyGrid = document.getElementById('tab-story');
   HANDLE_POOL.forEach((handle, i) => {
     const div = document.createElement('div');
-    div.className = 'story-post';
+    div.className = 'story-post cp-photo-waiting';
     if (i >= 8) div.style.display = 'none';
     div.dataset.batch = i >= 8 ? 'more' : 'base';
     div.innerHTML = `
-      <span class="placeholder-tag" style="position:absolute; top:8px; left:8px; z-index:2;">Ex.</span>
-      <div class="play-btn"></div>
-      <div class="story-handle"><span class="cp-ig-icon">${IG_ICON_SVG}</span>${handle}</div>
+      <i class="ti ti-camera-plus" style="font-size:26px; color:var(--ink-mute);"></i>
+      <p style="font-size:11px; color:var(--ink-mute); margin-top:8px; text-align:center; padding:0 10px;">Aguardando seu story</p>
+      <div class="story-handle cp-handle-badge-waiting" style="position:absolute; left:7px; right:7px; bottom:7px;"><span class="handle-text">@...</span></div>
     `;
     storyGrid.appendChild(div);
   });
