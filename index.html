@@ -1168,7 +1168,8 @@ document.getElementById('video-lightbox').addEventListener('click', (e) => {
 const detailPosters = [STYLE_ICONS['Autêntico'], STYLE_ICONS['Sofisticado'], STYLE_ICONS['Urbano']];
 const REAL_DETAIL_VIDEOS = [
   { mini: 'videos/cerne-ad1-mini.mp4', full: 'videos/cerne-ad1-full.mp4' },
-  { mini: 'videos/cerne-clara-mini.mp4', full: 'videos/cerne-clara-full.mp4' }
+  { mini: 'videos/cerne-clara-mini.mp4', full: 'videos/cerne-clara-full.mp4' },
+  { mini: 'videos/cerne-ad3-mini.mp4', full: 'videos/cerne-ad3-full.mp4' }
 ];
 document.querySelectorAll('.detail-video-circle').forEach((el, i) => {
   const svg = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'>${detailPosters[i % detailPosters.length]}</svg>`);
